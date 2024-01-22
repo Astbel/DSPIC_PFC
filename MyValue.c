@@ -15,6 +15,7 @@ AC_parameter *_AC_Class;
 
 /*變數聲明*/
 uint32_t ADC_Array[ADC_Size];
+uint32_t VBulk_Sqrt_2;
 /*初始化變數*/
 inline void initail_parameter(void)
 {

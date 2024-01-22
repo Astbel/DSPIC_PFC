@@ -35,7 +35,7 @@ extern AC_parameter  AC_CLass;
 
 /*變數聲明*/
 extern uint32_t ADC_Array[ADC_Size];
-
+extern uint32_t VBulk_Sqrt_2;
 
 /*擴充方法聲明*/
 inline void initail_parameter(void);
