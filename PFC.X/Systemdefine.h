@@ -4,6 +4,15 @@
 #include "stdlib.h"
 #include "string.h"
 
+/*資料型別定義*/
+typedef unsigned char		uint8_t ;
+typedef unsigned int		uint16_t ;
+typedef unsigned long		uint32_t ;
+typedef unsigned long long		uint64_t ;
+typedef char				int8 ;
+typedef int				int16 ;
+typedef long				int32 ;
+
 /*AC Side*/
 #define AC_DROP_CNT 10
 /*AC Zero Cross Level 定義額度不可能完全為0Vac下以5% offset誤差計算*/
@@ -35,5 +44,12 @@
 
 /*Array 大小聲明*/
 #define ADC_Size 5
+
+/*Boolean*/
+#define True   1
+#define False  0
+/*High Low*/
+#define High   1
+#define Low    0
 
 #endif

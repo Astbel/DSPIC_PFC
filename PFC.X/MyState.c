@@ -11,10 +11,10 @@ My_STATE my_state;
  * @brief AC確認是否在Bwron in 模式
  * 第一皆softstart 緩啟動 Sqart 2 of Vac
  */
-inline void Idle_State_handle(void)
+void Idle_State_handle(void)
 {
     /*等待AC 對Bulk Cap 充電至sqart2的電壓才能致下一個狀態不然會會開機大電流*/
-    if (ADC_Array[VBUS_CHANNEL] > VBulk_Sqrt_2)
+    if ((ADC_Array[VBUS_CHANNEL] > VBulk_Sqrt_2)&&(PSON==True))
         my_state = Ramp_UP;
 }
 
@@ -22,7 +22,7 @@ inline void Idle_State_handle(void)
  * @brief softstart緩啟動
  * 第二階緩啟動 150ms
  */
-inline void Ramp_up_Handle(void)
+void Ramp_up_Handle(void)
 {
 
 }
@@ -32,7 +32,7 @@ inline void Ramp_up_Handle(void)
  * 偵測2次側
  * OVP & Hiccup
  */
-inline void PFC_ON_Handle(void)
+void PFC_ON_Handle(void)
 {
     /* Hiccup */
     if (ADC_Array[VBUS_CHANNEL]>Hiccup_Volt_level)
@@ -50,7 +50,7 @@ inline void PFC_ON_Handle(void)
 /**
  * @brief 保護模式
  */
-inline void Shut_Down_Handle(void)
+void Shut_Down_Handle(void)
 {
     /*關閉DPWM */
 }
@@ -60,7 +60,7 @@ inline void Shut_Down_Handle(void)
  * 系統狀態執行Task
  * @param state  切換task
  */
-inline void PFC_Task_Handle(My_STATE my_state)
+void PFC_Task_Handle(My_STATE my_state)
 {
     switch (my_state)
     {
@@ -73,7 +73,7 @@ inline void PFC_Task_Handle(My_STATE my_state)
         break;
 
     case PFC_ON:
-        PFC_ON_Handle;
+        PFC_ON_Handle();
         break;
 
     case Shut_Down:

@@ -6,7 +6,7 @@
  * @brief
  *
  */
-inline void Moving_AVG(void)
+void Moving_AVG(void)
 {
 }
 
@@ -15,13 +15,13 @@ inline void Moving_AVG(void)
  * 使用於Interleaved PFC 兩臂切換
  *
  */
-inline void Zero_Cross_detcet(void)
+void Zero_Cross_detcet(void)
 {
     /*由於沒考慮整流測從Vac源看,如果從RECT下看就省一個判例*/
     if ((ADC_Array[AC_N_CHANNEL] < Zero_Cross_Level) && (ADC_Array[AC_L_CHANNEL] < Zero_Cross_Level))
     {
-        /*執行事件*/
-
+        /*blanktime旗標這時候master & slaver 臂都不能啟用*/
+        
         /*輔助臂切換之類*/
     }
 }
@@ -31,7 +31,7 @@ inline void Zero_Cross_detcet(void)
  * 偵測Rect Vac下掉電如果發生則關閉PFC,如果及時復電則不動作
  *
  */
-inline void AC_Drop(void)
+void AC_Drop(void)
 {
     static uint8_t ac_drop_cnt = 0;
 

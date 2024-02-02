@@ -16,13 +16,14 @@ AC_parameter *_AC_Class;
 /*變數聲明*/
 uint32_t ADC_Array[ADC_Size];
 uint32_t VBulk_Sqrt_2;
+uint8_t PSON;
+
 /*初始化變數*/
-inline void initail_parameter(void)
+void initail_parameter(void)
 {
     _PFC_Class = &PFC_Class;
     _AC_Class = &AC_CLass;
-    
+    PSON = False;
     /*inital adc value*/
-    memset(ADC_Array,0,ADC_Size);
-    
+    memset(ADC_Array, 0, ADC_Size);
 }

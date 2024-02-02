@@ -31,7 +31,7 @@ void MyControl_Inital(void)
  * output Iref PFC而言
  * @param err 目標與當前的誤差量
  */
-inline int32 Voltage_Loop_PI(uint16_t err)
+int32 Voltage_Loop_PI(uint16_t err)
 {
     int32 output;
 
@@ -77,7 +77,7 @@ inline int32 Voltage_Loop_PI(uint16_t err)
  * output Iref PFC而言
  * @param err 目標與當前的誤差量
  */
-inline int32 Voltage_Loop_Type(uint16_t err)
+int32 Voltage_Loop_Type(uint16_t err)
 {
     int32 output;
     /*差分方呈*/
@@ -90,8 +90,9 @@ inline int32 Voltage_Loop_Type(uint16_t err)
                               Voltage_Loop_2P2Z.An[3] * Voltage_Loop_2P2Z.Yn[3] +
                               Voltage_Loop_2P2Z.An[2] * Voltage_Loop_2P2Z.Yn[2] +
                               Voltage_Loop_2P2Z.An[1] * Voltage_Loop_2P2Z.Yn[1];
+    static int8 i = 0;
     /*iteration 紀錄上一筆*/
-    for (int8_t i = Orders; i > 0; i--)
+    for (i = Orders; i > 0; i--)
     {
         Voltage_Loop_2P2Z.Xn[i] = Voltage_Loop_2P2Z.Xn[i - 1];
         Voltage_Loop_2P2Z.Yn[i] = Voltage_Loop_2P2Z.Yn[i - 1];
@@ -116,7 +117,7 @@ inline int32 Voltage_Loop_Type(uint16_t err)
  * @param err Iref & Ind的差距
  * @return uint32_t DPWM的duty
  */
-inline uint32_t Current_Loop_PI(uint32_t err)
+uint32_t Current_Loop_PI(uint32_t err)
 {
     uint32_t output;
 
@@ -149,7 +150,7 @@ inline uint32_t Current_Loop_PI(uint32_t err)
     /*DPWM輸出*/
     output = _Curr_PID->Out;
 
-    return output
+    return output;
 }
 /**
  * @brief POLE ZERO CANCEL
@@ -159,7 +160,7 @@ inline uint32_t Current_Loop_PI(uint32_t err)
  * @param err Iref & Ind的差距
  * @return uint32_t DPWM的duty
  */
-inline uint32_t Current_Loop_Type(uint16_t err)
+uint32_t Current_Loop_Type(uint16_t err)
 {
     uint32_t output;
     /*差分方呈*/
@@ -172,8 +173,9 @@ inline uint32_t Current_Loop_Type(uint16_t err)
                               Current_Loop_2P2Z.An[3] * Current_Loop_2P2Z.Yn[3] +
                               Current_Loop_2P2Z.An[2] * Current_Loop_2P2Z.Yn[2] +
                               Current_Loop_2P2Z.An[1] * Current_Loop_2P2Z.Yn[1];
+    static int8 i = 0;
     /*iteration 紀錄上一筆*/
-    for (int8_t i = Orders; i > 0; i--)
+    for (i = Orders; i > 0; i--)
     {
         Current_Loop_2P2Z.Xn[i] = Current_Loop_2P2Z.Xn[i - 1];
         Current_Loop_2P2Z.Yn[i] = Current_Loop_2P2Z.Yn[i - 1];
@@ -197,12 +199,13 @@ inline uint32_t Current_Loop_Type(uint16_t err)
  * @Gain  my_gain AC交流增益
  * @return uint32_t  Iref
  */
-inline uint32_t Voltage_Feed_Forward(int32 Boost_Target,Gain my_gain)
+uint32_t Voltage_Feed_Forward(int32 Boost_Target, Gain my_gain)
 {
     /*Iref*/
+    uint32_t Iref;
     /*KM Gain 交流信號倍率 整留下取樣*/
     /* 1/Vrms^2,暫定90Vac下的AC增益,這裡欠缺AC ADC 取樣 */
-    Iref = my_gain.KM_90Vac*Boost_Target;
+    Iref = my_gain.KM_90Vac * Boost_Target;
 
     return Iref;
 }

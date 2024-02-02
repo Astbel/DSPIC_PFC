@@ -1,12 +1,14 @@
 #ifndef __MYCONTROL_H_
 #define __MYCONTROL_H_
 
+#include "Systemdefine.h"
+
 // 變數名稱
 #define Orders 3
 
-//Iref 限制間接限制I Limit
-#define Iref_Limit_Max  4096
-#define Iref_Limit_Min    0
+// Iref 限制間接限制I Limit
+#define Iref_Limit_Max 4096
+#define Iref_Limit_Min 0
 // DPWM limit 暫定解析度
 #define DPWM_MAX 4096
 #define DPWM_MIN 0
@@ -15,14 +17,13 @@
 #define Intergal_MIN 0
 // 結構體申明區
 
-typedef struct 
+typedef struct
 {
     float KM_90Vac;
     float KM_115Vac;
     float KM_230Vac;
     float KM_264Vac;
-}Gain;
-
+} Gain;
 
 // PID class
 typedef struct
@@ -51,13 +52,10 @@ extern Type_Compesation Voltage_Loop_2P2Z;
 
 // 擴充方法區
 void MyControl_Inital(void);
-inline int32 Voltage_Loop_PI(uint16_t err);
-inline int32 Voltage_Loop_Type(uint16_t err);
-inline uint32_t Current_Loop_PI(uint32_t err);
-inline uint32_t Current_Loop_Type(uint16_t err);
-inline uint32_t Voltage_Feed_Forward(int32 Boost_Target,Gain my_gain);
-
-
-
+int32 Voltage_Loop_PI(uint16_t err);
+int32 Voltage_Loop_Type(uint16_t err);
+uint32_t Current_Loop_PI(uint32_t err);
+uint32_t Current_Loop_Type(uint16_t err);
+uint32_t Voltage_Feed_Forward(int32 Boost_Target, Gain my_gain);
 
 #endif
