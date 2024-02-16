@@ -40,7 +40,7 @@ typedef long				int32 ;
 #define Over_Volt_Proction 3057 // 470V
 
 /*時序 這裡假定ISR時間是100us執行一次然後目標設計 是20ms*/
-#define Hold_Up_Time_CNT 200
+#define Hold_Up_Time 200
 
 /*Array 大小聲明*/
 #define ADC_Size 5

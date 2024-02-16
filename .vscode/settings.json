@@ -3,6 +3,7 @@
     "files.associations": {
         "myvalue.h": "c",
         "stdlib.h": "c",
-        "mycalculate.h": "c"
+        "mycalculate.h": "c",
+        "mystate.h": "c"
     }
 }
