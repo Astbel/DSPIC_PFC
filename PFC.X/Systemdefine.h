@@ -31,6 +31,8 @@ typedef long				int32 ;
 #define Bwron_Out_CNT 200
 /*PGI PIN尚未定義*/
 
+/*SoftStart VBulk 定義  12bit ADC*/
+#define SoftStart_Smooth_V  65 /*10V*/
 /*PGI LEVEL adc 取樣電阻後這個是要修正過這只是暫時 為了150ms */
 #define PGI_High_Level 2641 // 380v
 #define PGI_Low_Level 2341  // 360v

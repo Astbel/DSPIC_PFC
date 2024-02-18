@@ -8,9 +8,12 @@
 
 typedef struct
 {
-    uint32_t VBulk;
+    int32 VBulk;
     uint32_t Ind_Curr_Phase_A;
     uint32_t Ind_Curr_Phase_B;
+    int16 Boost_Softstart;
+    int16 Vtarget;
+    uint16_t Ramp_Step;
 } PFC_parameter;
 
 typedef struct
