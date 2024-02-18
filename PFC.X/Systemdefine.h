@@ -27,7 +27,8 @@ typedef long				int32 ;
 #define PSU_Bwron_IN 1623
 /*Bwron out  72Vac*/
 #define PSU_Bwron_OUT 1499
-
+/*Bwron Out 計數*/
+#define Bwron_Out_CNT 200
 /*PGI PIN尚未定義*/
 
 /*PGI LEVEL adc 取樣電阻後這個是要修正過這只是暫時 為了150ms */

@@ -1,8 +1,11 @@
 #ifndef __MYCALCULATE_H_
 #define __MYCALCULATE_H_
 
+#define Moving_Sample_Rate 4
+
 /*public 變數*/
 extern uint8_t AC_Drop_Event;
+
 /*Struct*/
 
 /*類別物件化*/

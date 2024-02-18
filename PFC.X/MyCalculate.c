@@ -11,10 +11,31 @@ uint8_t AC_Drop_Event;
 
 /**
  * @brief
+ * 移動平均計算Vac電壓 & Vac Peak & Zero Cross
+ *
  *
  */
-void Moving_AVG(void)
+void Moving_AVG(uint8_t new_point, uint32_t Array[Moving_Sample_Rate], int *index)
 {
+    static uint32_t sum = 0;
+    sum -= Array[*index];      // 減去舊的節點
+    sum += new_point;          // 新的節點
+    Array[*index] = new_point; // 跟新儲存點
+
+    // 跟新index數組
+    *index = (*index + 1) % Moving_Sample_Rate;
+
+    // 檢查是否為峰值
+    if (new_point > points[(*index - 1) % Moving_Sample_Rate] && new_point > points[(*index + 1) % Moving_Sample_Rate])
+    {
+        _AC_CLass->AC_PEAK = new_point;
+    }
+    // 平均值
+    _AC_CLass->AC_Instance = sum / Moving_Sample_Rate;
+
+    // 零交越事件檢測考慮誤差5%
+    if (_AC_CLass->AC_Instance < Zero_Cross_Level)
+        Zero_Cross_detcet();
 }
 
 /**
@@ -81,6 +102,23 @@ void Hold_Up_Time_Method(void)
             /*Off DPWM*/
 
             /*PGI off */
+        }
+    }
+}
+
+/**
+ * @brief
+ * PSU Bwron out 功能
+ * Vac低於特定電壓關閉PFC
+ */
+void Bwron_Out_Method(void)
+{
+    if (_AC_CLass->AC_PEAK <= PSU_Bwron_OUT)
+    {
+        _AC_CLass->AC_Bwron_Out_Cnt++;
+        if (_AC_CLass->AC_Bwron_Out_Cnt >=Bwron_Out_CNT)
+        {
+             /*Freeze calculate duty disable DPWM Off PGI*/
         }
     }
 }
