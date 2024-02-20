@@ -29,10 +29,18 @@ typedef struct
 } AC_parameter;
 
 /*enum 聲明建造*/
+typedef enum
+{
+    Vac_90=1,
+    Vac_115,
+    Vac_230,
+    Vac_264
+}AC_Level;
 
 /*結構體 & enum object建立*/
 extern PFC_parameter PFC_Class;
 extern AC_parameter AC_CLass;
+extern AC_Level AC_LV;
 /*結構體PTR建立*/
 extern PFC_parameter *_PFC_Class;
 extern AC_parameter *_AC_CLass;

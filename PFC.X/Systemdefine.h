@@ -55,4 +55,14 @@ typedef long				int32 ;
 #define High   1
 #define Low    0
 
+/*AC level Range 數值暫定*/
+#define Gear90_78Vac    1210
+#define Gear90_105Vac   1628
+#define Gear115_106Vac  1643
+#define Gear115_185Vac  2868
+#define Gear230_186Vac  2883
+#define Gear230_232Vac  3596
+#define Gear264_233Vac  3612
+#define Gear264_264Vac  4096
+
 #endif

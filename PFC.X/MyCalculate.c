@@ -11,34 +11,59 @@ uint32_t ac_sum;
 /*variable delcare for pravite*/
 /*ptr 建立*/
 /*pravite mehtod delcare*/
+void Gear_90Vac(void);
+void Gear_115Vac(void);
+void Gear_230Vac(void);
+void Gear_264Vac(void);
+
+/**
+ * @brief 
+ * Vac輸出method尚未想到overload的方式
+ */
+void Gear_90Vac(void)
+{
+
+}
+
+void Gear_115Vac(void)
+{
+
+}
+
+void Gear_230Vac(void)
+{
+
+}
+
+void Gear_264Vac(void)
+{
+
+}
 
 /**
  * @brief
  * 移動平均計算Vac電壓 & Vac Peak & Zero Cross
- *
- *
  */
-// void Moving_AVG(uint8_t new_point, uint32_t Array[Moving_Sample_Rate], uint8_t *index)
-// {
-//     sum -= Array[*index];      // 減去舊的節點
-//     sum += new_point;          // 新的節點
-//     Array[*index] = new_point; // 跟新儲存點
+void Moving_AVG(uint8_t new_point, uint32_t Array[4], uint8_t *index)
+{
+    ac_sum -= Array[*index];   // 減去舊的節點
+    ac_sum += new_point;       // 新的節點
+    Array[*index] = new_point; // 跟新儲存點
 
-//     // 跟新index數組
-//     *index = (*index + 1) % Moving_Sample_Rate;
+    // 跟新index數組
+    *index = (*index + 1) % Moving_Sample_Rate;
 
-//     // 檢查是否為峰值
-//     if (new_point > Array[(*index - 1) % Moving_Sample_Rate] && new_point > Array[(*index + 1) % Moving_Sample_Rate])
-//     {
-//         _AC_CLass->AC_PEAK = new_point;
-//     }
-//     // 平均值
-//     _AC_CLass->AC_Instance = sum / Moving_Sample_Rate;
-
-//     // 零交越事件檢測考慮誤差5%
-//     if (_AC_CLass->AC_Instance < Zero_Cross_Level)
-//         Zero_Cross_detcet();
-// }
+    // 檢查是否為峰值
+    if (new_point > Array[(*index - 1) % Moving_Sample_Rate] && new_point > Array[(*index + 1) % Moving_Sample_Rate])
+    {
+        AC_CLass.AC_PEAK = new_point;
+    }
+    // 平均值
+    AC_CLass.AC_Instance = ac_sum / Moving_Sample_Rate;
+    // 零交越事件檢測考慮誤差5%
+    if (AC_CLass.AC_Instance < Zero_Cross_Level)
+        Zero_Cross_detcet();
+}
 
 /**
  * @brief 零交越事件
@@ -111,13 +136,52 @@ void Hold_Up_Time_Method(void)
  */
 void Bwron_Out_Method(void)
 {
-    // if (_AC_CLass->AC_PEAK <= PSU_Bwron_OUT)
-    // {
-    //     _AC_CLass->AC_Bwron_Out_Cnt++;
-    //     if (_AC_CLass->AC_Bwron_Out_Cnt >=Bwron_Out_CNT)
-    //     {
-    //          /*Freeze calculate duty disable DPWM Off PGI*/
-    //     }
-    // }
+    if (AC_CLass.AC_PEAK <= PSU_Bwron_OUT)
+    {
+        AC_CLass.AC_Bwron_Out_Cnt++;
+        if (AC_CLass.AC_Bwron_Out_Cnt >= Bwron_Out_CNT)
+        {
+            /*Freeze calculate duty disable DPWM Off PGI*/
+        }
+    }
+}
+
+/**
+ * @brief
+ * 偵測Vac電壓切換檔位
+ * 90 115 230 264檔位選擇
+ *
+ */
+void AC_Gear(void)
+{
+    /*定義Vac4組區間下因該切換的Vac*/
+    if ((AC_CLass.AC_PEAK > Gear90_78Vac) && (AC_CLass.AC_PEAK < Gear90_105Vac))
+        AC_LV = Vac_90;
+    else if ((AC_CLass.AC_PEAK > Gear115_106Vac) && (AC_CLass.AC_PEAK < Gear115_185Vac))
+        AC_LV = Vac_115;
+    else if ((AC_CLass.AC_PEAK > Gear230_186Vac) && (AC_CLass.AC_PEAK < Gear230_232Vac))
+        AC_LV = Vac_230;
+    else if ((AC_CLass.AC_PEAK > Gear264_233Vac) && (AC_CLass.AC_PEAK < Gear264_264Vac))
+        AC_LV = Vac_264;
+    
+    /*檢測AC狀態*/
+    switch (AC_LV)
+    {
+    case Vac_90:
+        Gear_90Vac();
+        break;
+
+    case Vac_115:
+        Gear_115Vac();
+        break;
+
+    case Vac_230:
+        Gear_230Vac();
+        break;
+
+    case Vac_264:
+        Gear_264Vac();
+        break;
+    }
 }
 

@@ -4,7 +4,7 @@
 /*宣告區  var,struct,etc...*/
 PFC_parameter PFC_Class;
 AC_parameter AC_CLass;
-
+AC_Level AC_LV;
 /*struct inital*/
 PFC_parameter PFC_Class = {0, 0, 0};
 AC_parameter AC_CLass = {0, 0, 0, 0, 0, 0};
