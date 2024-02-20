@@ -4,7 +4,6 @@
 #define Moving_Sample_Rate 4
 
 /*public 變數*/
-extern uint8_t AC_Drop_Event;
 
 /*Struct*/
 
@@ -13,9 +12,9 @@ extern uint8_t AC_Drop_Event;
 /*類別物件指標*/
 
 /*擴充方法聲明*/
-void Moving_AVG(void);
+// void Moving_AVG(uint8_t new_point, uint32_t Array[Moving_Sample_Rate], uint8_t *index);
 void Zero_Cross_detcet(void);
 void AC_Drop(void);
 void Hold_Up_Time_Method(void);
-
+void Bwron_Out_Method(void);
 #endif

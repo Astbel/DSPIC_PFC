@@ -20,7 +20,7 @@
 
 
 
-void main(void) 
+int main(void) 
 {
 
 
@@ -32,4 +32,5 @@ void main(void)
     {
         
     }
+    return 0;
 }

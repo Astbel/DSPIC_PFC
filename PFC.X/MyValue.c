@@ -26,4 +26,11 @@ void initail_parameter(void)
     PSON = False;
     /*inital adc value*/
     memset(ADC_Array, 0, ADC_Size);
+    ac_drop_cnt = 0;
+    hold_up_time_cnt = 0;
+    ac_sum = 0;
+
 }
+
+
+

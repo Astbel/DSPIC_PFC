@@ -1,5 +1,5 @@
-#ifndef __MYCVALUE_H_
-#define __MYCVALUE_H_
+#ifndef __MYVALUE_H_
+#define __MYVALUE_H_
 
 /*引用區*/
 #include "Systemdefine.h"
@@ -39,7 +39,10 @@ extern AC_parameter *_AC_CLass;
 /*變數聲明*/
 extern uint32_t ADC_Array[ADC_Size];
 extern uint32_t VBulk_Sqrt_2;
-
+extern uint8_t AC_Drop_Event;
+extern uint8_t ac_drop_cnt;
+extern uint8_t hold_up_time_cnt;
+extern uint32_t ac_sum;
 /*PSON聲明暫定*/
 extern uint8_t PSON;
 /*擴充方法聲明*/
