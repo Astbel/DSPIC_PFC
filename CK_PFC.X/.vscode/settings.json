@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "mycontrol.h": "c",
+        "systemdefine.h": "c"
+    }
+}
