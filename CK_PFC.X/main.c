@@ -18,8 +18,12 @@
 /*
  * 
  */
-int main(int argc, char** argv) {
+int main(void)
+{
+    SYSTEM_Initialize();
 
-    return (EXIT_SUCCESS);
+    while(1)
+    {
+    }    
 }
 
