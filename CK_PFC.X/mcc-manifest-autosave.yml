@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: CK_PFC
-creation_date: 2024-02-26T21:50:58.354+08:00[GMT+08:00]
+creation_date: 2024-03-07T21:00:09.622+08:00[GMT+08:00]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -14,7 +14,7 @@ content_manager_version: 5.0.0
 is_mcc_offline: false
 is_using_prerelease_versions: false
 mcc_content_registries: https://registry.npmjs.org/
-device_library: {library_class: com.microchip.mcc.melody.Library, name: Melody, version: 2.6.5}
+device_library: {library_class: com.microchip.mcc.melody.Library, name: Melody, version: 2.7.0}
 packs: {name: dsPIC33CK-MP_DFP, version: 1.13.366}
 modules:
 - {name: '@mchp-mcc/clock-16bit-driver', type: MELODY, version: 1.2.1}

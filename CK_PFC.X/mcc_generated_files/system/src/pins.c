@@ -55,7 +55,7 @@ void PINS_Initialize(void)
      * Setting the GPIO Direction SFR(s)
      ***************************************************************************/
     TRISA = 0x001F;
-    TRISB = 0xFFFF;
+    TRISB = 0xAFFD;
 
 
     /****************************************************************************
@@ -77,8 +77,18 @@ void PINS_Initialize(void)
     /****************************************************************************
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
-    ANSELA = 0x001F;
-    ANSELB = 0x009F;
+    ANSELA = 0x000E;
+    ANSELB = 0x0098;
+
+    /****************************************************************************
+     * Set the PPS
+     ***************************************************************************/
+     __builtin_write_RPCON(0x0000); // unlock PPS
+
+        RPINR21bits.REFOIR = 0x0020; //RB0->INTERNAL OSCILLATOR:REFI;
+
+     __builtin_write_RPCON(0x0800); // lock PPS
+
 
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/CK_PFC.X.production.elf">
+  <executable name="dist/default/debug/CK_PFC.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>8192</length>
@@ -11,8 +11,8 @@
     <memory name="program">
       <units>bytes</units>
       <length>35712</length>
-      <used>9054</used>
-      <free>26658</free>
+      <used>9093</used>
+      <free>26619</free>
     </memory>
   </executable>
 </project>
