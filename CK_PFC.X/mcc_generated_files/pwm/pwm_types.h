@@ -1,16 +1,15 @@
 /**
- * PINS Generated Driver Header File 
+ * PWM Generated Driver Types Header File
  * 
- * @file      pins.h
- *            
- * @defgroup  pinsdriver Pins Driver
- *            
- * @brief     The Pin Driver directs the operation and function of 
- *            the selected device pins using dsPIC MCUs.
+ * @file 	  pwm_types.h
+ * 
+ * @ingroup   pwmdriver
+ * 
+ * @brief 	  This is the generated driver types header file for the PWM driver
  *
- * @skipline @version   Firmware Driver Version 1.0.2
+ * @skipline @version   Firmware Driver Version 2.1.1
  *
- * @skipline @version   PLIB Version 1.3.0
+ * @skipline @version   PLIB Version 1.6.3
  *
  * @skipline  Device : dsPIC33CK32MP102
 */
@@ -36,21 +35,32 @@
     THIS SOFTWARE.
 */
 
-#ifndef PINS_H
-#define PINS_H
-// Section: Includes
-#include <xc.h>
+#ifndef PWM_TYPES_H
+#define PWM_TYPES_H
 
-// Section: Device Pin Macros
+// Section: Included Files
+
+// Section: Enum Declarations
 
 /**
- * @ingroup  pinsdriver
- * @brief    Initializes the PINS module
- * @param    none
- * @return   none  
- */
-void PINS_Initialize(void);
+ @ingroup  pwmdriver
+ @enum 	   PWM_OUTPUT_MODES
+ @brief	   Enumeration containing the output modes of PWM driver
+*/
+ 
+enum PWM_OUTPUT_MODES
+{
 
+    OUTPUT_SCAN_MODE  = 0x6, /**<Output Scan Mode*/
+    BRUSH_DC_OUTPUT_FORWARD  = 0x5, /**<Brush DC Output Forward Mode*/
+    BRUSH_DC_OUTPUT_REVERSE  = 0x4, /**<Brush DC Output Reverse Mode*/
+    HALF_BRIDGE_OUTPUT  = 0x2, /**<Half Bridge Output Mode*/
+    PUSH_PULL_OUTPUT  = 0x1, /**<Push Pull Output Mode*/
+    STEERABLE_SINGLE_OUTPUT  = 0x0, /**<Steerable Single Output Mode*/
 
+};
 
-#endif
+#endif  //PWM_TYPES_H
+/**
+ End of File
+*/

@@ -8,9 +8,13 @@
                      displayName="MCC Generated Files"
                      projectFiles="true">
         <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
-          <itemPath>mcc_generated_files/peripheral/adc1.h</itemPath>
           <itemPath>mcc_generated_files/peripheral/pwm.h</itemPath>
-          <itemPath>mcc_generated_files/peripheral/tmr1.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="pwm" displayName="pwm" projectFiles="true">
+          <itemPath>mcc_generated_files/pwm/pwm_types.h</itemPath>
+          <itemPath>mcc_generated_files/pwm/sccp1.h</itemPath>
+          <itemPath>mcc_generated_files/pwm/sccp2.h</itemPath>
+          <itemPath>mcc_generated_files/pwm/pwm_interface.h</itemPath>
         </logicalFolder>
         <logicalFolder name="system" displayName="system" projectFiles="true">
           <itemPath>mcc_generated_files/system/clock.h</itemPath>
@@ -45,9 +49,13 @@
                      projectFiles="true">
         <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
-            <itemPath>mcc_generated_files/peripheral/src/adc1.c</itemPath>
             <itemPath>mcc_generated_files/peripheral/src/pwm.c</itemPath>
-            <itemPath>mcc_generated_files/peripheral/src/tmr1.c</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="pwm" displayName="pwm" projectFiles="true">
+          <logicalFolder name="src" displayName="src" projectFiles="true">
+            <itemPath>mcc_generated_files/pwm/src/sccp1.c</itemPath>
+            <itemPath>mcc_generated_files/pwm/src/sccp2.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="system" displayName="system" projectFiles="true">

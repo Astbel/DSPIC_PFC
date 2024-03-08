@@ -52,12 +52,12 @@
 
 // Set the PWM module to the options selected in the user interface.
 void PWM_Initialize(void) {
-    // HRERR enabled; LOCK enabled; DIVSEL 1:2; MCLKSEL FOSC; 
-    PCLKCON = 0xC100;
-    // FSCL 10000; 
-    FSCL = 0x2710;
-    // FSMINPER 5000; 
-    FSMINPER = 0x1388;
+    // HRERR enabled; LOCK disabled; DIVSEL 1:2; MCLKSEL AFPLLO; 
+    PCLKCON = 0xC003;
+    // FSCL 1000; 
+    FSCL = 0x3E8;
+    // FSMINPER 1000; 
+    FSMINPER = 0x3E8;
     // MPHASE 0x0; 
     MPHASE = 0x0;
     // MDC 0x0; 
@@ -311,5 +311,19 @@ void PWM_Initialize(void) {
     // 
     PG4CAP = 0x0;
 
+    IFS4bits.PWM2IF = 0;
+    IEC4bits.PWM2IE = 1;
+    IFS4bits.PWM1IF = 0;
+    IEC4bits.PWM1IE = 1;
+}
+
+void __attribute__ ((interrupt, no_auto_psv)) _PWM2Interrupt(void)
+{
+     IFS4bits.PWM2IF = 0;
+}
+
+void __attribute__ ((interrupt, no_auto_psv)) _PWM1Interrupt(void)
+{
+     IFS4bits.PWM1IF = 0;
 }
 

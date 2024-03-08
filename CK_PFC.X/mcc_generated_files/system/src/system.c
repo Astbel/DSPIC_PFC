@@ -36,10 +36,10 @@
 #include "../system_types.h"
 #include "../clock.h"
 #include "../pins.h"
-#include "../../peripheral/adc1.h"
 #include "../dmt.h"
 #include "../../peripheral/pwm.h"
-#include "../../peripheral/tmr1.h"
+#include "../../pwm/sccp1.h"
+#include "../../pwm/sccp2.h"
 #include "../interrupt.h"
 
 
@@ -47,10 +47,10 @@ void SYSTEM_Initialize(void)
 {
     CLOCK_Initialize();
     PINS_Initialize();
-    ADC1_Initialize();
     DMT_Initialize();
     PWM_Initialize();
-    TMR1_Initialize();
+    SCCP1_PWM_Initialize();
+    SCCP2_PWM_Initialize();
     INTERRUPT_GlobalEnable();
     INTERRUPT_Initialize();
 }
