@@ -177,8 +177,8 @@ void PWM_Initialize (void)
     PG1DCA = 0x00;
     // DCA 0; 
     PG2DCA = 0x00;
-    // PER 39992; 
-    PG1PER = 0x9C38;
+    // PER 39992; PTPER 頻率設定
+    PG1PER = 0x9C38; 
     // PER 39992; 
     PG2PER = 0x9C38;
     // TRIGA 10000; 
@@ -352,8 +352,25 @@ void PWM_EventF_Tasks(void)
 */
 void PWM_Duty_Increase(void)
 {
-     PWM_DutyCycleSet(1,0xFA0);
-    //  PWM_PeriodSet(1,0xFA0); 
+    //Test Duty Modulation
+    #if(Test_Duty_Modulation==True)
+     PG1DC=PG1DC+PWM_1_Duty;
+     
+     if (PG1DC > PG1PER)
+     {
+       PWM_DutyCycleSet(PWM_GENERATOR_1,PWM_1_Duty);
+     }
+     //Test Freq Modulation
+     #elif(Test_Freq_Modulation==True)
+     PG1PER=PG1PER+Freq_1_PER;
+     /*越界就Freq調變為10kHz*/
+     if (PG1PER > 0x9C38)
+        PWM_PeriodSet(PWM_GENERATOR_1,Freq_10KHz);
+     
+        
+     
+    #endif
+
 }
 
 

@@ -59,13 +59,20 @@
     extern "C" {
 
 #endif
-
+/*Boolean*/
+#define True  1
+#define False 0
+/*條件編譯*/
+// #define Test_Duty_Modulation 1
+#define Test_Freq_Modulation 1
 /**
   Section: Data Type Definitions
 */
-
+/*Duty 1 prection resulotion */
 #define PWM_1_Duty (0x190)
-
+/*Freq 1 prection resulotion*/
+#define Freq_1_PER (0x190)
+#define Freq_10KHz (0xFA0)
 /** PWM Generator Definition
  
  @Summary 
