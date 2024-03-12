@@ -101,10 +101,10 @@ void PWM_Initialize (void)
     PWMEVTE = 0x00;
     // EVTFPOL Active-high; EVTFPGS PG1; EVTFSTRD Stretched to 8 PWM clock cycles minimum; EVTFSEL PGTRGSEL bits; EVTFOEN disabled; EVTFSYNC Not synchronized; 
     PWMEVTF = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
-    PG1CONH = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
-    PG2CONH = 0x01;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    PG1CONH = 0x100;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    PG2CONH = 0x101;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled; 
     PG1STAT = 0x00;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled; 
@@ -117,10 +117,10 @@ void PWM_Initialize (void)
     PG1IOCONH = 0x1C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
     PG2IOCONH = 0x1C;
-    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
-    PG1EVTL = 0x01;
-    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
-    PG2EVTL = 0x00;
+    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG1EVTL = 0x09;
+    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG2EVTL = 0x08;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
     PG1EVTH = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
@@ -346,3 +346,14 @@ void PWM_EventF_Tasks(void)
         IFS10bits.PEVTFIF = 0;
     }
 }
+
+/**
+* PDC只有在開始的時候才能調整duty
+*/
+void PWM_Duty_Increase(void)
+{
+     PWM_DutyCycleSet(1,0xFA0);
+    //  PWM_PeriodSet(1,0xFA0); 
+}
+
+

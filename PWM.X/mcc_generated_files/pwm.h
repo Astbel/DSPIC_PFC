@@ -64,7 +64,7 @@
   Section: Data Type Definitions
 */
 
-
+#define PWM_1_Duty (0x190)
 
 /** PWM Generator Definition
  
@@ -1952,6 +1952,9 @@ inline static void __attribute__((deprecated("\nThis will be removed in future M
     }
 
 }
+
+
+void PWM_Duty_Increase(void);
 
 /**
   @Summary

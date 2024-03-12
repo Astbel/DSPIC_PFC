@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "tmr1.h"
 #include "GPIO.h"
-
+#include "pwm.h"
 
 /**
  Section: File specific functions
@@ -169,9 +169,12 @@ uint16_t TMR1_Counter16BitGet( void )
 void __attribute__ ((weak)) TMR1_CallBack(void)
 {
     // Add your custom callback code here
-    // GPIO_Toggle();
-    /*duty change*/
-
+    /*觀測用可以確定Timer是否發生*/
+    GPIO_Toggle();
+   
+    /*duty  變換目前失敗檢測中*/
+    // PWM_Duty_Increase();
+    
     /*Freq change*/
 
 

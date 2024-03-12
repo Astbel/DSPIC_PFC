@@ -1,6 +1,8 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "pwm.h": "c"
+        "pwm.h": "c",
+        "system.h": "c",
+        "system_types.h": "c"
     }
 }
