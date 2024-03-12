@@ -50,3 +50,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+CK_PFC.X/dist/default/production/memoryfile.xml
+CK_PFC.X/queuelogs/debugtool.txt
