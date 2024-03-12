@@ -63,8 +63,8 @@
 #define True  1
 #define False 0
 /*條件編譯*/
-// #define Test_Duty_Modulation 1
-#define Test_Freq_Modulation 1
+#define Test_Duty_Modulation 1
+// #define Test_Freq_Modulation 1
 /**
   Section: Data Type Definitions
 */
