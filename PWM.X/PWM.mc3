@@ -4337,7 +4337,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDataUpdateTriggerSrc"/>
-         <value>Duty Cycle</value>
+         <value>Phase</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDeadTimeHigh"/>
@@ -24497,7 +24497,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1EVTL"/>
-         <value>9</value>
+         <value>17</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1FFPCIH"/>
@@ -25849,7 +25849,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1EVTL" settingAlias="UPDTRG"/>
-         <value>Duty Cycle</value>
+         <value>Phase</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FFPCIH" settingAlias="ACP"/>
@@ -42711,7 +42711,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>6b6bd6a5cb03777ae477a833a1c3d9a0c854852a00a8984d0e29a83d34e819df</hash>
+         <hash>55cff23fa8511fa963180cc934afbd213b65334694f176b218f9d7ed9a57a49a</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -42723,7 +42723,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>7a3018057d5b83f72b47798c56bd1ce9a68b26024b420999b714be755b68548a</hash>
+         <hash>9ef9f1d5d9c63ea34861d3ec181d423a980c8d1c6a301664288137c9cd5e01df</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
@@ -42747,7 +42747,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>10281a58361237490b9269145b09af9fd0a122c0ef01b98cd29cad3e409b0a62</hash>
+         <hash>9bb068fbc954c888844c029ca5c448fb00764f1c83b0a8ea9ee786b10ea176dd</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

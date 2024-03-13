@@ -117,8 +117,8 @@ void PWM_Initialize(void)
     PG1IOCONH = 0x1C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG2IOCONH = 0x1C;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG1EVTL = 0x09;
+    // UPDTRG Phase; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
+    PG1EVTL = 0x11;
     // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x08;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -364,18 +364,28 @@ void PWM_Duty_Increase(void)
 // Test Freq Modulation ,need also fix for the pwm formula PTPER recalculate also have recalculate duty cycle
 #elif (Test_Freq_Modulation == True)
     /*recored last times PTPER make a slope gain here*/
-    static uint32_t PG1PER_Last = PG1PER;
-    static uint32_t Freq_Gain;
+    uint32_t PG1PER_Last = PG1PER;
+    uint32_t Freq_Gain;
     /*Update freq here*/
     PG1PER = PG1PER + Freq_1_PER;
-    /*slope gain for new PTPER*/    
-    Freq_Gain = PG1PER_Last/PG1PER;
+    /*slope gain for new PTPER*/
+    Freq_Gain = PG1PER_Last / PG1PER;
     /*undo here if cross over how to fix duty cycle*/
     /*Synrconzie update duty with new PTPER here */
-    PG1DC  = Freq_Gain*PG1DC;
+
+    // PG1DC  = Freq_Gain*PG1DC;
+
     /*越界就Freq調變為10kHz*/
     if (PG1PER > 0x9C38)
         PWM_PeriodSet(PWM_GENERATOR_1, Freq_10KHz);
+    
+    /*移動phase 其實也是修正PDC 的變化量*/
+#elif (Test_Phase == True)
+    PG1PHASE = PG1PHASE + Freq_1_PER;
+    if (PG1PHASE > 0x9C38)
+    {
+        PWM_PhaseSet(PWM_GENERATOR_1,Freq_10KHz);
+    }
 
 #endif
 }
