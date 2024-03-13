@@ -53,10 +53,10 @@
  Section: Driver Interface Function Definitions
 */
 
-void PWM_Initialize(void)
+void PWM_Initialize (void)
 {
-    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG1CONL = 0x88;
+    // HREN enabled; MODSEL Variable Phase; TRGCNT 1; CLKSEL Master clock; ON enabled; 
+    PG1CONL = 0x89;
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
     PG2CONL = 0x88;
     // MCLKSEL AFPLLO - Auxiliary Clock with PLL Enabled; HRERR disabled; LOCK disabled; DIVSEL 1:2;
@@ -103,22 +103,22 @@ void PWM_Initialize(void)
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG1CONH = 0x100;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
-    PG2CONH = 0x101;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    PG2CONH = 0x100;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG1STAT = 0x00;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG2STAT = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
-    PG1IOCONL = 0xC00;
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
+    PG1IOCONL = 0x00;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
     PG2IOCONL = 0xC00;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG1IOCONH = 0x1C;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
     PG2IOCONH = 0x1C;
-    // UPDTRG Phase; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG1EVTL = 0x11;
+    // UPDTRG Phase; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG1EVTL = 0x10;
     // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x08;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -177,13 +177,13 @@ void PWM_Initialize(void)
     PG1DCA = 0x00;
     // DCA 0;
     PG2DCA = 0x00;
-    // PER 39992; PTPER 頻率設定
-    PG1PER = 0x9C38;
     // PER 39992;
+    PG1PER = 0x9C38;
+    // PER 39992; 
     PG2PER = 0x9C38;
-    // TRIGA 10000;
-    PG1TRIGA = 0x2710;
     // TRIGA 0;
+    PG1TRIGA = 0x00;
+    // TRIGA 0; 
     PG2TRIGA = 0x00;
     // TRIGB 0;
     PG1TRIGB = 0x00;
@@ -202,9 +202,8 @@ void PWM_Initialize(void)
     // DTH 400;
     PG2DTH = 0x190;
 
-    // Wait until AUX PLL clock is locked
-    while (!CLOCK_AuxPllLockStatusGet())
-        ;
+    //Wait until AUX PLL clock is locked
+    while(!CLOCK_AuxPllLockStatusGet());
 
     PG1CONLbits.ON = 1;
     PG2CONLbits.ON = 1;
@@ -353,7 +352,7 @@ void PWM_EventF_Tasks(void)
  */
 void PWM_Duty_Increase(void)
 {
-// Test Duty Modulation
+// Test Duty Modulation  -result is PWM duty
 #if (Test_Duty_Modulation == True)
     PG1DC = PG1DC + PWM_1_Duty;
 
@@ -373,14 +372,14 @@ void PWM_Duty_Increase(void)
     /*undo here if cross over how to fix duty cycle*/
     /*Synrconzie update duty with new PTPER here */
 
-    // PG1DC  = Freq_Gain*PG1DC;
+    PG1DC  = Freq_Gain*PG1DC;
 
     /*越界就Freq調變為10kHz*/
     if (PG1PER > 0x9C38)
         PWM_PeriodSet(PWM_GENERATOR_1, Freq_10KHz);
     
-    /*移動phase 其實也是修正PDC 的變化量*/
-#elif (Test_Phase == True)
+    /*移動phase 其實也是修正PDC 的變化量-result is PWM duty */ 
+#elif (Test_Phase == True)  
     PG1PHASE = PG1PHASE + Freq_1_PER;
     if (PG1PHASE > 0x9C38)
     {

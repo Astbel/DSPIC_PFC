@@ -3,6 +3,7 @@
     "files.associations": {
         "pwm.h": "c",
         "system.h": "c",
-        "system_types.h": "c"
+        "system_types.h": "c",
+        "clock.h": "c"
     }
 }
