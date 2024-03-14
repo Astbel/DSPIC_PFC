@@ -4337,7 +4337,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDataUpdateTriggerSrc"/>
-         <value>Duty Cycle</value>
+         <value>Manual</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDeadTimeHigh"/>
@@ -24497,7 +24497,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1EVTL"/>
-         <value>8</value>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1FFPCIH"/>
@@ -25849,7 +25849,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1EVTL" settingAlias="UPDTRG"/>
-         <value>Duty Cycle</value>
+         <value>Manual</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FFPCIH" settingAlias="ACP"/>
@@ -42589,7 +42589,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TMR1" registerAlias="TI" settingAlias="enable"/>
-         <value>enabled</value>
+         <value>disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="TMR1" registerAlias="TI" settingAlias="flag"/>
@@ -42699,7 +42699,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>669f547cce16f4ba8c1dd8fa21bcfeb5ed81f5466ed34121853a78d91e475c7c</hash>
+         <hash>aac7ef1ed33961e4c69aa1adfecfc13376d93411461fffd726bb8ccb050637e3</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
@@ -42711,7 +42711,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>6ee8cfc8aab8c4e2cc4a84782bf8517bd5447245571d0cf1efa22038be9180a4</hash>
+         <hash>b69131d5ddd7ae10b1c719f264e87af40448b6d6ad5c13aba95916cd329ff176</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -42723,7 +42723,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>cf65614e02eea555faf7a1dc3fb40af24b412f6340e131277749f1ff75d3037e</hash>
+         <hash>07786644196124b8fdd1599a03a6919580ac57f23385286a0f138c8406cff37b</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
@@ -42747,7 +42747,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>a9eef224b4fe9bffbf1f1cdb598808ef351b4ebdf7567283b3682d0df0e08ec7</hash>
+         <hash>9c4fcab2d2ecc03da704ba342a3351bf91e68d22ceed5a2ef4445a5fe9664665</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>
@@ -42759,11 +42759,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\tmr1.c</file>
-         <hash>6a8606b52d50cb846ac351f0ff8408a90a89f2563f76fe8eb981cd8f3232e686</hash>
+         <hash>f76d6494e321071db2918a596836a7a4b2feda210ba77c475db1ee37707d8360</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\tmr1.h</file>
-         <hash>d659a183e750e7e2697b5a860ad4dc3e30fc72e8df86fb288169cd06adb3fd9e</hash>
+         <hash>793ac462c7b9bdecf23954be0c5e501bc89b896908a6601696b965638d074a2e</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.c</file>

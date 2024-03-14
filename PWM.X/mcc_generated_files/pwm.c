@@ -58,9 +58,9 @@ static void (*PWM_Generator1InterruptHandler)(void) = NULL;
 
 void PWM_Initialize(void)
 {
-    // HREN enabled; MODSEL Variable Phase; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG1CONL = 0x89;
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
+    PG1CONL = 0x88;
+    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled; 
     PG2CONL = 0x88;
     // MCLKSEL AFPLLO - Auxiliary Clock with PLL Enabled; HRERR disabled; LOCK disabled; DIVSEL 1:2;
     PCLKCON = 0x03;
@@ -116,12 +116,12 @@ void PWM_Initialize(void)
     PG1IOCONL = 0x00;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
     PG2IOCONL = 0xC00;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
-    PG1IOCONH = 0x1C;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Complementary; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    PG1IOCONH = 0x0C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG2IOCONH = 0x1C;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG1EVTL = 0x08;
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG1EVTL = 0x00;
     // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x08;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -240,12 +240,20 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     /*BTN event */
     if (check_BTN_Press() == True)
     {
+       /*Manunal 版本*/     
+        /*要跟新的值 duty Freq*/
         PG1DC=0xFA0;
+        PG1STATbits.UPDREQ=1;
+        /*Trigger 訊號*/
+
+
         // PWM_PeriodSet(PWM_GENERATOR_1, 0xFA0);
     }
     else
     {
         PG1DC=0x4E20;
+        PG1STATbits.UPDREQ=1;
+        PG1STATbits.UPDREQ=0;
     }
     
 
