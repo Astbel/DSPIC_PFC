@@ -59,11 +59,23 @@
     extern "C" {
 
 #endif
+/*** Button Definitions *********************************************/
+#define BUTTON_S1_PORT PORTEbits.RE7
+#define BUTTON_S1_TRIS TRISEbits.TRISE7
+
+#define BUTTON_S1_PRESSED 0
 /*Boolean*/
 #define True  1
 #define False 0
 /*條件編譯*/
 #define Test_Duty_Modulation 1
+
+/*Method delcare*/
+uint8_t check_BTN_Press(void);
+
+
+
+
 // #define Test_Freq_Modulation 1
 // #define Test_Phase 1
 // #define Test_PTPER_RESET 1

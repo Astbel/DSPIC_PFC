@@ -48,7 +48,7 @@
 
 #include "pwm.h"
 #include "clock.h"
-
+#include "GPIO.h"
 /**
  Section: Driver Interface Function Definitions
 */
@@ -222,7 +222,7 @@ void PWM_Initialize(void)
 
 void __attribute__((weak)) PWM_Generator1_CallBack(void)
 {
-    // Add Application code here
+    //    PWM_Duty_Increase();
 }
 
 void PWM_SetGenerator1InterruptHandler(void *handler)
@@ -232,14 +232,27 @@ void PWM_SetGenerator1InterruptHandler(void *handler)
 
 void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 {
-    if (PWM_Generator1InterruptHandler)
+    //  if (PWM_Generator1InterruptHandler)
+    //  {
+    // PWM Generator1 interrupt handler function
+    //  PWM_Generator1InterruptHandler();
+    //  }
+    /*BTN event */
+    if (check_BTN_Press() == True)
     {
-        // PWM Generator1 interrupt handler function
-        PWM_Generator1InterruptHandler();
+        PG1DC=0xFA0;
+        // PWM_PeriodSet(PWM_GENERATOR_1, 0xFA0);
     }
+    else
+    {
+        PG1DC=0x4E20;
+    }
+    
 
+    GPIO_ON();
     // clear the PWM Generator1 interrupt flag
     IFS4bits.PWM1IF = 0;
+    GPIO_OFF();
 }
 
 void __attribute__((weak)) PWM_Generator2_CallBack(void)
@@ -360,6 +373,15 @@ void PWM_EventF_Tasks(void)
         // clear the PWM EventF interrupt flag
         IFS10bits.PEVTFIF = 0;
     }
+}
+
+/*Method 實作*/
+uint8_t check_BTN_Press(void)
+{
+    if (BUTTON_S1_PORT == BUTTON_S1_PRESSED)
+        return True;
+    else
+        return False;
 }
 
 /**

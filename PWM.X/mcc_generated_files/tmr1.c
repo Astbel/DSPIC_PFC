@@ -49,7 +49,6 @@
 
 #include <stdio.h>
 #include "tmr1.h"
-#include "GPIO.h"
 #include "pwm.h"
 
 /**
@@ -105,7 +104,7 @@ void TMR1_Initialize (void)
     }
 
     IFS0bits.T1IF = false;
-    IEC0bits.T1IE = true;
+    IEC0bits.T1IE = false;
 	
     tmr1_obj.timerElapsed = false;
 
@@ -166,7 +165,7 @@ void __attribute__ ((weak)) TMR1_CallBack(void)
     GPIO_Toggle();
    
     /*duty  變換目前失敗檢測中*/
-    PWM_Duty_Increase();
+    // PWM_Duty_Increase();
     
     /*Freq change*/
 

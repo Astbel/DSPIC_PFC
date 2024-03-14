@@ -46,21 +46,22 @@
   Section: Included Files
 */
 #include "mcc_generated_files/system.h"
-
+#include "mcc_generated_files/pwm.h"
 /*
                          Main application
  */
 int main(void)
 {
-    // initialize the device
-    SYSTEM_Initialize();
-    while (1)
-    {
-        // Add your application code
-    }
-    return 1; 
+  /*BTN PIN*/
+  BUTTON_S1_TRIS = 1;
+  // initialize the device
+  SYSTEM_Initialize();
+  while (1)
+  {
+    // Add your application code
+  }
+  return 1;
 }
 /**
  End of File
 */
-

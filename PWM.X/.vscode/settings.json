@@ -4,6 +4,7 @@
         "pwm.h": "c",
         "system.h": "c",
         "system_types.h": "c",
-        "clock.h": "c"
+        "clock.h": "c",
+        "gpio.h": "c"
     }
 }
