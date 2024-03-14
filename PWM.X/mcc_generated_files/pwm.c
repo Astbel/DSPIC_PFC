@@ -56,7 +56,7 @@
 // PWM Default PWM Generator Interrupt Handler
 static void (*PWM_Generator1InterruptHandler)(void) = NULL;
 
-void PWM_Initialize(void)
+void PWM_Initialize (void)
 {
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
     PG1CONL = 0x88;
@@ -106,8 +106,8 @@ void PWM_Initialize(void)
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG1CONH = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD Immediate update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
-    PG2CONH = 0x101;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    PG2CONH = 0x01;
     // TRSET disabled; UPDREQ enabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE enabled; FLTEVT disabled;
     PG1STAT = 0x18;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
@@ -116,14 +116,14 @@ void PWM_Initialize(void)
     PG1IOCONL = 0x00;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
     PG2IOCONL = 0xC00;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Complementary; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
-    PG1IOCONH = 0x0C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
+    PG1IOCONH = 0x1C;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
     PG2IOCONH = 0x1C;
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG1EVTL = 0x01;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
-    PG1EVTL = 0x00;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG2EVTL = 0x08;
+    PG2EVTL = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG1EVTH = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -184,8 +184,8 @@ void PWM_Initialize(void)
     PG1PER = 0x9C38;
     // PER 39992;
     PG2PER = 0x9C38;
-    // TRIGA 0;
-    PG1TRIGA = 0x00;
+    // TRIGA 10000; 
+    PG1TRIGA = 0x2710;
     // TRIGA 0;
     PG2TRIGA = 0x00;
     // TRIGB 0;
@@ -208,19 +208,18 @@ void PWM_Initialize(void)
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
-    // PWM Generator 1 Interrupt
+    //PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
     IEC4bits.PWM1IE = 1;
 
-    // Wait until AUX PLL clock is locked
-    while (!CLOCK_AuxPllLockStatusGet())
-        ;
+    //Wait until AUX PLL clock is locked
+    while(!CLOCK_AuxPllLockStatusGet());
 
     PG1CONLbits.ON = 1;
     PG2CONLbits.ON = 1;
 }
 
-void __attribute__((weak)) PWM_Generator1_CallBack(void)
+void __attribute__ ((weak)) PWM_Generator1_CallBack(void)
 {
     //    PWM_Duty_Increase();
 }
@@ -230,7 +229,7 @@ void PWM_SetGenerator1InterruptHandler(void *handler)
     PWM_Generator1InterruptHandler = handler;
 }
 
-void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
+void __attribute__ ( ( interrupt, no_auto_psv ) ) _PWM1Interrupt (  )
 {
     //  if (PWM_Generator1InterruptHandler)
     //  {
@@ -280,7 +279,8 @@ void PWM_Generator2_Tasks(void)
     }
 }
 
-void __attribute__((weak)) PWM_EventA_CallBack(void)
+
+void __attribute__ ((weak)) PWM_EventA_CallBack(void)
 {
     // Add Application code here
 }
