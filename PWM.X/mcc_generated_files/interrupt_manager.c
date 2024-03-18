@@ -52,6 +52,9 @@
 */
 void INTERRUPT_Initialize (void)
 {
+    //    PEVTBI: PWM EVENT B
+    //    Priority: 1
+        IPC42bits.PEVTBIP = 1;
     //    PEVTAI: PWM EVENT A
     //    Priority: 1
         IPC42bits.PEVTAIP = 1;

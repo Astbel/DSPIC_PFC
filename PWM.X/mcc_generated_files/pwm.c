@@ -56,6 +56,13 @@
 // PWM Default PWM Generator Interrupt Handler
 static void (*PWM_Generator1InterruptHandler)(void) = NULL;
 
+// PWM Default Event Interrupt Handler
+static void (*PWM_EventAInterruptHandler)(void) = NULL;
+static void (*PWM_EventBInterruptHandler)(void) = NULL;
+
+/*pravite var here*/
+static uint8_t test_var;
+
 void PWM_Initialize(void)
 {
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
@@ -224,9 +231,21 @@ void PWM_Initialize(void)
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
+    /* Initialize PWM Generator Interrupt Handler*/
+    PWM_SetEventAInterruptHandler(&PWM_EventA_CallBack);
+    PWM_SetEventBInterruptHandler(&PWM_EventB_CallBack);
+
     // PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
     IEC4bits.PWM1IE = 1;
+
+    // PWM EventA Interrupt
+    IFS10bits.PEVTAIF = 0;
+    IEC10bits.PEVTAIE = 1;
+
+    // PWM EventB Interrupt
+    IFS10bits.PEVTBIF = 0;
+    IEC10bits.PEVTBIE = 0;
 
     // Wait until AUX PLL clock is locked
     while (!CLOCK_AuxPllLockStatusGet())
@@ -274,7 +293,8 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     GPIO_ON();
     // clear the PWM Generator1 interrupt flag
     IFS4bits.PWM1IF = 0;
-    GPIO_OFF();
+    if (test_var==True)
+        GPIO_OFF();
 }
 
 void __attribute__((weak)) PWM_Generator2_CallBack(void)
@@ -296,42 +316,51 @@ void PWM_Generator2_Tasks(void)
 
 void __attribute__((weak)) PWM_EventA_CallBack(void)
 {
-    /*BTN press then latch happen test*/
     if (check_BTN_Press() == True)
     {
-
         GPIO_OFF();
+        test_var = True;
     }
+    else
+        test_var = False;
 }
 
-void PWM_EventA_Tasks(void)
+void PWM_SetEventAInterruptHandler(void *handler)
 {
-    if (IFS10bits.PEVTAIF)
+    PWM_EventAInterruptHandler = handler;
+}
+
+void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt()
+{
+    if (PWM_EventAInterruptHandler)
     {
-
-        // PWM EventA callback function
-        PWM_EventA_CallBack();
-
-        // clear the PWM EventA interrupt flag
-        IFS10bits.PEVTAIF = 0;
+        // PWM EventA interrupt handler function
+        PWM_EventAInterruptHandler();
     }
+
+    // clear the PWM EventA interrupt flag
+    IFS10bits.PEVTAIF = 0;
 }
 void __attribute__((weak)) PWM_EventB_CallBack(void)
 {
     // Add Application code here
 }
 
-void PWM_EventB_Tasks(void)
+void PWM_SetEventBInterruptHandler(void *handler)
 {
-    if (IFS10bits.PEVTBIF)
+    PWM_EventBInterruptHandler = handler;
+}
+
+void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt()
+{
+    if (PWM_EventBInterruptHandler)
     {
-
-        // PWM EventB callback function
-        PWM_EventB_CallBack();
-
-        // clear the PWM EventB interrupt flag
-        IFS10bits.PEVTBIF = 0;
+        // PWM EventB interrupt handler function
+        PWM_EventBInterruptHandler();
     }
+
+    // clear the PWM EventB interrupt flag
+    IFS10bits.PEVTBIF = 0;
 }
 void __attribute__((weak)) PWM_EventC_CallBack(void)
 {

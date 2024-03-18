@@ -59,36 +59,12 @@
     extern "C" {
 
 #endif
-/*** Button Definitions *********************************************/
-#define BUTTON_S1_PORT PORTEbits.RE7
-#define BUTTON_S1_TRIS TRISEbits.TRISE7
 
-#define BUTTON_S1_PRESSED 0
-/*Boolean*/
-#define True  1
-#define False 0
-/*條件編譯*/
-#define Test_Duty_Modulation 1
-
-/*Method delcare*/
-uint8_t check_BTN_Press(void);
-
-
-
-
-// #define Test_Freq_Modulation 1
-// #define Test_Phase 1
-// #define Test_PTPER_RESET 1
 /**
   Section: Data Type Definitions
 */
-/*Duty 1 prection resulotion */
-#define PWM_1_Duty (0x190)
-/*Freq 1 prection resulotion*/
-#define Freq_1_PER (0x190)
-#define Freq_10KHz (0xFA0)
+
 /** PWM Generator Definition
- 
  @Summary 
    Defines the PWM generators available for PWM
  
@@ -98,6 +74,34 @@ uint8_t check_BTN_Press(void);
  Remarks:
    None
  */
+/*Pin define*/
+#define BUTTON_S1_PORT     PORTEbits.RE7
+#define BUTTON_S1_PRESSED  TRISEbits.TRISE7
+
+#define BUTTON_S1_PRESSED 0
+
+/*條件編譯*/
+#define Test_Duty_Modulation 1
+#define Test_Freq_Modulation 1
+#define Test_Phase  1
+#define  Test_PTPER_RESET 1
+
+/*Boolean */
+#define True   1
+#define False  0
+
+/*pwm 1% resulation*/
+#define PWM_1_Duty (0x190)
+/*Freq 1% resulation*/
+#define Freq_1_PER (0x190)
+#define Freq_10KHz (0xFA0)
+
+/*varialbe*/
+
+
+/*method*/
+uint8_t check_BTN_Press(void);
+/*struct enu,*/
 typedef enum 
 {
     PWM_GENERATOR_1 =  1,       
@@ -1391,23 +1395,24 @@ void PWM_Generator1_CallBack(void);
 
 /**
   @Summary
-    Tasks routine for PWM1.
+    Assigns a function pointer with a PWM Generator1 callback address.
 
   @Description
-    This is a tasks routine for PWM1.
+    This routine assigns a function pointer with a PWM Generator1 
+    callback address.
 
   @Param
-    None.
+    Address of the callback routine.
 
   @Returns
-    None.
+    None
  
   @Example 
-    <code>    
-    PWM_Generator1_Tasks();
+    <code>
+    PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
     </code>
 */
-void PWM_Generator1_Tasks(void);
+void PWM_SetGenerator1InterruptHandler(void *handler);
 
 /**
   @Summary
@@ -1472,23 +1477,24 @@ void PWM_EventA_CallBack(void);
 
 /**
   @Summary
-    Tasks routine for EventA.
+    Assigns a function pointer with a PWM EventA callback address.
 
   @Description
-    This is a tasks routine for EventA.
+    This routine assigns a function pointer with a PWM EventA 
+    callback address.
 
   @Param
-    None.
+    Address of the callback routine.
 
   @Returns
-    None.
+    None
  
   @Example 
-    <code>    
-    PWM_EventA_Tasks();
+    <code>
+    PWM_SetEventAInterruptHandler(&PWM_EventA_CallBack);
     </code>
 */
-void PWM_EventA_Tasks(void);
+void PWM_SetEventAInterruptHandler(void *handler);
 
 /**
   @Summary
@@ -1512,23 +1518,24 @@ void PWM_EventB_CallBack(void);
 
 /**
   @Summary
-    Tasks routine for EventB.
+    Assigns a function pointer with a PWM EventB callback address.
 
   @Description
-    This is a tasks routine for EventB.
+    This routine assigns a function pointer with a PWM EventB 
+    callback address.
 
   @Param
-    None.
+    Address of the callback routine.
 
   @Returns
-    None.
+    None
  
   @Example 
-    <code>    
-    PWM_EventB_Tasks();
+    <code>
+    PWM_SetEventBInterruptHandler(&PWM_EventB_CallBack);
     </code>
 */
-void PWM_EventB_Tasks(void);
+void PWM_SetEventBInterruptHandler(void *handler);
 
 /**
   @Summary
@@ -1973,9 +1980,6 @@ inline static void __attribute__((deprecated("\nThis will be removed in future M
     }
 
 }
-
-
-void PWM_Duty_Increase(void);
 
 /**
   @Summary

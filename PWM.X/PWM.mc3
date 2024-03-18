@@ -25593,7 +25593,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PEVTBI" settingAlias="enable"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PEVTBI" settingAlias="flag"/>
@@ -43827,7 +43827,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>e28f17b16a7a510d4ab62a6c911e11675beaba679348b1b542bcab07129c8496</hash>
+         <hash>ac30303e900ba5409eb9c512cf7332caef553133d83bbaeb900cc3f562415b99</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
@@ -43851,11 +43851,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>0e49fcf2706bac69c674218706e6ab9a31b96cc65e34c2cf6f6a9fabaec76162</hash>
+         <hash>bba0384297a3b920aad1f4695976f5d91255480f104a8751290ee5c46f870cd6</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
-         <hash>0e5d45cce14ef542e71894b5a9e21aa023e52f4ca79218ee91d1f6ad9c4d50ab</hash>
+         <hash>ecb8afbbd9dd425ebb802456378b1c365548a3d1cc86f7a8887138a44a9c6af1</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm_module_features.h</file>

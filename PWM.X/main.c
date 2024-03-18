@@ -53,7 +53,7 @@
 int main(void)
 {
   /*BTN PIN*/
-  BUTTON_S1_TRIS = 1;
+//  BUTTON_S1_TRIS = 1;
   // initialize the device
   SYSTEM_Initialize();
   while (1)
