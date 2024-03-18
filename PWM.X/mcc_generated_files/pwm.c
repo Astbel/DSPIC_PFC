@@ -18,7 +18,7 @@
     The generated drivers are tested against the following:
         Compiler          :  XC16 v2.10
         MPLAB 	          :  MPLAB X v6.05
-*/
+ */
 
 /*
     (c) 2020 Microchip Technology Inc. and its subsidiaries. You may use this
@@ -40,18 +40,18 @@
 
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
-*/
+ */
 
 /**
   Section: Included Files
-*/
+ */
 
 #include "pwm.h"
 #include "clock.h"
 #include "GPIO.h"
 /**
  Section: Driver Interface Function Definitions
-*/
+ */
 
 // PWM Default PWM Generator Interrupt Handler
 static void (*PWM_Generator1InterruptHandler)(void) = NULL;
@@ -63,8 +63,7 @@ static void (*PWM_EventBInterruptHandler)(void) = NULL;
 /*pravite var here*/
 static uint8_t test_var;
 
-void PWM_Initialize(void)
-{
+void PWM_Initialize(void) {
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
     PG1CONL = 0x88;
     // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
@@ -131,16 +130,16 @@ void PWM_Initialize(void)
     PG1EVTL = 0x01;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x00;
-    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
-    PG1EVTH = 0x00;
+    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN enabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
+    PG1EVTH = 0x8000;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG2EVTH = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG1FPCIL = 0x00;
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
+    PG1FPCIL = 0x5A1B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FPCIL = 0x00;
-    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
-    PG1FPCIH = 0x00;
+    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
+    PG1FPCIH = 0x300;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
@@ -212,22 +211,24 @@ void PWM_Initialize(void)
     // DTH 400;
     PG2DTH = 0x190;
     /*Test in latch HPWM 1H*/
-    /*Mode select*/
-    PG1CLPCIHbits.LATMOD = 0;
+#if (Latch_Test == True)
 
-    /*Fault event PIN setting Test*/
+    /*Mode select*/
+    // PG1CLPCIHbits.LATMOD = 0;
+     
+    // /*Fault event PIN setting Test*/
     PG1CLPCILbits.PSS = 0b10111; /*Fault source output as EVENT A*/
-    PG1CLPCILbits.PPS = 0;       /*Fault happen force low output*/
-    PG1CLPCILbits.AQSS = 0b000;  /* no source select */
-    PG1CLPCILbits.AQPS = 0;      /* normal type polarity */
+    PG1CLPCILbits.PPS = 0; /*Fault happen force low output*/
+    PG1CLPCILbits.AQSS = 0b000; /* no source select */
+    PG1CLPCILbits.AQPS = 0; /* normal type polarity */
 
     /*Unlock Fault PIN event setting Test*/
     PG1CLPCILbits.TERM = 0b000; /*manual write lock and unlock timting*/
-    PG1CLPCILbits.SWTERM = 1;   /*software unlock pin*/
+    PG1CLPCILbits.SWTERM = 1; /*software unlock pin*/
     PG1CLPCILbits.TSYNCDIS = 0; /*EOC(end of cycle) protect the pwm*/
     PG1CLPCIHbits.TQSS = 0b111; /*software control pci output*/
-    PG1CLPCIHbits.TQPS = 1;     /*反向*/
-
+    PG1CLPCIHbits.TQPS = 1; /*反向*/
+#endif
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
@@ -255,36 +256,55 @@ void PWM_Initialize(void)
     PG2CONLbits.ON = 1;
 }
 
-void __attribute__((weak)) PWM_Generator1_CallBack(void)
-{
+void __attribute__((weak)) PWM_Generator1_CallBack(void) {
     //    PWM_Duty_Increase();
 }
 
-void PWM_SetGenerator1InterruptHandler(void *handler)
-{
+void PWM_SetGenerator1InterruptHandler(void *handler) {
     PWM_Generator1InterruptHandler = handler;
 }
 
-void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
-{
+void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt() {
     //  if (PWM_Generator1InterruptHandler)
     //  {
     // PWM Generator1 interrupt handler function
     //  PWM_Generator1InterruptHandler();
     //  }
     /*BTN event */
-    if (check_BTN_Press() == True)
-    {
+    if (check_BTN_Press() == True) {
         /*Manunal 版本*/
         /*要跟新的值 duty Freq*/
-        PG1DC = 0xFA0;
-        PG1STATbits.UPDREQ = 1;
+
+        //        PG1FPCILbits.SWTERM=1;
+        // PG1FPCIHbits.SWPCI =1;
+
+        // PG1DC = 0xFA0;
+        // PG1STATbits.UPDREQ = 1;
         /*Trigger 訊號*/
 
         // PWM_PeriodSet(PWM_GENERATOR_1, 0xFA0);
+    } else if (check_SW2_Press() == True) {
+        /* quit latch mode */
+        PG1IOCONLbits.OVRDAT = 0b00;
+        PG1IOCONLbits.OVRENH=1;
+        PG1IOCONLbits.OVRENL=1;
+        
+        /*Reset latch mode*/
+        PG1STATbits.FLTEVT =0; //clear fault event
+        PG1CLPCIHbits.LATMOD =1; //reset mode
+        
+        /**/
+         PG1CLPCIHbits.LATMOD =0; //Enable fault module again
+        /*fault isr guess now not sure*/
+         IEC10bits.PEVTAIE = 0;
+         IEC10bits.PEVTAIE = 1;
+         /*disable override*/
+        PG1IOCONLbits.OVRENH=0;
+        PG1IOCONLbits.OVRENL=0;
+
+        PG1CLPCIHbits.SWPCI=0;
     }
-    else
-    {
+    else {
         PG1DC = 0x4E20;
         PG1STATbits.UPDREQ = 1;
         PG1STATbits.UPDREQ = 0;
@@ -293,19 +313,19 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     GPIO_ON();
     // clear the PWM Generator1 interrupt flag
     IFS4bits.PWM1IF = 0;
-    if (test_var==True)
+    if (test_var == True) 
+    {
         GPIO_OFF();
+        // PG1CONLbits.ON = 0;
+    } 
 }
 
-void __attribute__((weak)) PWM_Generator2_CallBack(void)
-{
+void __attribute__((weak)) PWM_Generator2_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_Generator2_Tasks(void)
-{
-    if (IFS4bits.PWM2IF)
-    {
+void PWM_Generator2_Tasks(void) {
+    if (IFS4bits.PWM2IF) {
         // PWM Generator2 callback function
         PWM_Generator2_CallBack();
 
@@ -314,26 +334,21 @@ void PWM_Generator2_Tasks(void)
     }
 }
 
-void __attribute__((weak)) PWM_EventA_CallBack(void)
-{
-    if (check_BTN_Press() == True)
-    {
-        GPIO_OFF();
+void __attribute__((weak)) PWM_EventA_CallBack(void) {
+    if (check_BTN_Press() == True) {
+        // GPIO_OFF();
+        PG1CLPCIHbits.SWPCI=1;
         test_var = True;
-    }
-    else
+    } else
         test_var = False;
 }
 
-void PWM_SetEventAInterruptHandler(void *handler)
-{
+void PWM_SetEventAInterruptHandler(void *handler) {
     PWM_EventAInterruptHandler = handler;
 }
 
-void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt()
-{
-    if (PWM_EventAInterruptHandler)
-    {
+void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt() {
+    if (PWM_EventAInterruptHandler) {
         // PWM EventA interrupt handler function
         PWM_EventAInterruptHandler();
     }
@@ -341,20 +356,17 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt()
     // clear the PWM EventA interrupt flag
     IFS10bits.PEVTAIF = 0;
 }
-void __attribute__((weak)) PWM_EventB_CallBack(void)
-{
+
+void __attribute__((weak)) PWM_EventB_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_SetEventBInterruptHandler(void *handler)
-{
+void PWM_SetEventBInterruptHandler(void *handler) {
     PWM_EventBInterruptHandler = handler;
 }
 
-void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt()
-{
-    if (PWM_EventBInterruptHandler)
-    {
+void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt() {
+    if (PWM_EventBInterruptHandler) {
         // PWM EventB interrupt handler function
         PWM_EventBInterruptHandler();
     }
@@ -362,15 +374,13 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt()
     // clear the PWM EventB interrupt flag
     IFS10bits.PEVTBIF = 0;
 }
-void __attribute__((weak)) PWM_EventC_CallBack(void)
-{
+
+void __attribute__((weak)) PWM_EventC_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_EventC_Tasks(void)
-{
-    if (IFS10bits.PEVTCIF)
-    {
+void PWM_EventC_Tasks(void) {
+    if (IFS10bits.PEVTCIF) {
 
         // PWM EventC callback function
         PWM_EventC_CallBack();
@@ -379,15 +389,13 @@ void PWM_EventC_Tasks(void)
         IFS10bits.PEVTCIF = 0;
     }
 }
-void __attribute__((weak)) PWM_EventD_CallBack(void)
-{
+
+void __attribute__((weak)) PWM_EventD_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_EventD_Tasks(void)
-{
-    if (IFS10bits.PEVTDIF)
-    {
+void PWM_EventD_Tasks(void) {
+    if (IFS10bits.PEVTDIF) {
 
         // PWM EventD callback function
         PWM_EventD_CallBack();
@@ -396,15 +404,13 @@ void PWM_EventD_Tasks(void)
         IFS10bits.PEVTDIF = 0;
     }
 }
-void __attribute__((weak)) PWM_EventE_CallBack(void)
-{
+
+void __attribute__((weak)) PWM_EventE_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_EventE_Tasks(void)
-{
-    if (IFS10bits.PEVTEIF)
-    {
+void PWM_EventE_Tasks(void) {
+    if (IFS10bits.PEVTEIF) {
 
         // PWM EventE callback function
         PWM_EventE_CallBack();
@@ -413,15 +419,13 @@ void PWM_EventE_Tasks(void)
         IFS10bits.PEVTEIF = 0;
     }
 }
-void __attribute__((weak)) PWM_EventF_CallBack(void)
-{
+
+void __attribute__((weak)) PWM_EventF_CallBack(void) {
     // Add Application code here
 }
 
-void PWM_EventF_Tasks(void)
-{
-    if (IFS10bits.PEVTFIF)
-    {
+void PWM_EventF_Tasks(void) {
+    if (IFS10bits.PEVTFIF) {
 
         // PWM EventF callback function
         PWM_EventF_CallBack();
@@ -432,9 +436,16 @@ void PWM_EventF_Tasks(void)
 }
 
 /*Method 實作*/
-uint8_t check_BTN_Press(void)
-{
+uint8_t check_BTN_Press(void) {
     if (BUTTON_S1_PORT == BUTTON_S1_PRESSED)
+        return True;
+    else
+        return False;
+}
+
+/*latch off*/
+uint8_t check_SW2_Press(void) {
+    if (BUTTON_S2_PORT == BUTTON_S2_PRESSED)
         return True;
     else
         return False;
@@ -444,9 +455,8 @@ uint8_t check_BTN_Press(void)
  * PDC只有在開始的時候才能調整duty
  * 需要找到可以同時調整Freq 和 Duty 的方式
  */
-void PWM_Duty_Increase(void)
-{
-// Test Duty Modulation  -result is PWM duty
+void PWM_Duty_Increase(void) {
+    // Test Duty Modulation  -result is PWM duty
 #if (Test_Duty_Modulation == True)
 
     PG1PER = PG1PER + Freq_1_PER;
@@ -458,7 +468,7 @@ void PWM_Duty_Increase(void)
     // }
     if (PG1PER > 0x9C38)
         PWM_PeriodSet(PWM_GENERATOR_1, Freq_10KHz);
-// Test Freq Modulation ,need also fix for the pwm formula PTPER recalculate also have recalculate duty cycle
+    // Test Freq Modulation ,need also fix for the pwm formula PTPER recalculate also have recalculate duty cycle
 #elif (Test_Freq_Modulation == True)
     /*recored last times PTPER make a slope gain here*/
     uint32_t PG1PER_Last = PG1PER;
@@ -476,11 +486,10 @@ void PWM_Duty_Increase(void)
     if (PG1PER > 0x9C38)
         PWM_PeriodSet(PWM_GENERATOR_1, Freq_10KHz);
 
-        /*移動phase 其實也是修正PDC 的變化量-result is PWM duty */
+    /*移動phase 其實也是修正PDC 的變化量-result is PWM duty */
 #elif (Test_Phase == True)
     PG1PHASE = PG1PHASE + Freq_1_PER;
-    if (PG1PHASE > 0x9C38)
-    {
+    if (PG1PHASE > 0x9C38) {
         PWM_PhaseSet(PWM_GENERATOR_1, Freq_10KHz);
     }
 #elif (Test_PTPER_RESET == True)

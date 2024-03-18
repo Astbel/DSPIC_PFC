@@ -24513,11 +24513,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1FPCIH"/>
-         <value>0</value>
+         <value>768</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1FPCIL"/>
-         <value>0</value>
+         <value>23067</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1IOCONH"/>
@@ -25921,7 +25921,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIH" settingAlias="ACP"/>
-         <value>Level-sensitive</value>
+         <value>Latched</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIH" settingAlias="BPEN"/>
@@ -25953,11 +25953,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="AQPS"/>
-         <value>Not inverted</value>
+         <value>Inverted</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="AQSS"/>
-         <value>None</value>
+         <value>LEB is active</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="PPS"/>
@@ -25965,7 +25965,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="PSS"/>
-         <value>Tied to 0</value>
+         <value>Comparator 1 output</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="PSYNC"/>
@@ -25977,7 +25977,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="TERM"/>
-         <value>Manual Terminate</value>
+         <value>Selects PCI Source#1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1FPCIL" settingAlias="TSYNCDIS"/>
@@ -43851,7 +43851,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>bba0384297a3b920aad1f4695976f5d91255480f104a8751290ee5c46f870cd6</hash>
+         <hash>e238b7f6f6d705d4e578f0b8618787e48a3477a223979b7368a9fc096a369f63</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
