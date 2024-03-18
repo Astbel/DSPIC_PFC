@@ -152,14 +152,14 @@ void UART1_Initialize(void)
     
     //Make sure to set LAT bit corresponding to TxPin as high before UART initialization
     U1MODEbits.UARTEN = 1;   // enabling UART ON bit
-    U1MODEbits.UTXEN = 1;
-    U1MODEbits.URXEN = 1;
+    U1MODEbits.UTXEN = 1;    // enabling UART TX bit
+    U1MODEbits.URXEN = 1;    // enabling UART RX bit
 }
 
 /**
     Maintains the driver's transmitter state machine and implements its ISR
 */
-
+/*Uart Tx ISR PTR function*/
 void UART1_SetTxInterruptHandler(void (* interruptHandler)(void))
 {
     if(interruptHandler == NULL)
