@@ -162,7 +162,7 @@ void __attribute__ ((weak)) TMR1_CallBack(void)
 {
     // Add your custom callback code here
     /*觀測用可以確定Timer是否發生*/
-    GPIO_Toggle();
+    // GPIO_Toggle();
     /*switch on DAC*/
     if ((check_BTN_Press() == True))
     {
@@ -173,8 +173,19 @@ void __attribute__ ((weak)) TMR1_CallBack(void)
     else if (check_SW2_Press() == True)
     {
       CMP1_Disable();
+      Quit_Fault();
+    }
+
+    else if (check_SW3_Press()==True)
+    {
+      /*再次開啟PCI*/
+       PG1CLPCIHbits.SWPCI = 1;
     }
     
+
+    /*GPIO PCI status*/
+    
+
     
     /*duty  變換目前失敗檢測中*/
     // PWM_Duty_Increase();

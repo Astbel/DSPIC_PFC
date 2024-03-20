@@ -78,10 +78,10 @@ extern "C"
 /*Pin define*/
 #define BUTTON_S1_PORT PORTEbits.RE7
 #define BUTTON_S1_PRESSED TRISEbits.TRISE7
-#define BUTTON_S2_PORT  PORTEbits.RE8
-#define BUTTON_S2_TRIS  TRISEbits.TRISE8
-#define BUTTON_S3_PORT  PORTEbits.RE9
-#define BUTTON_S3_TRIS  TRISEbits.TRISE9
+#define BUTTON_S2_PORT PORTEbits.RE8
+#define BUTTON_S2_TRIS TRISEbits.TRISE8
+#define BUTTON_S3_PORT PORTEbits.RE9
+#define BUTTON_S3_TRIS TRISEbits.TRISE9
 /*BTN status*/
 #define BUTTON_S1_PRESSED 0
 #define BUTTON_S2_PRESSED 0
@@ -108,6 +108,7 @@ extern "C"
   /*method*/
   uint8_t check_BTN_Press(void);
   uint8_t check_SW2_Press(void);
+  uint8_t check_SW3_Press(void);
   /*struct enu,*/
   typedef enum
   {
@@ -172,7 +173,7 @@ extern "C"
       </code>
   */
   void PWM_Initialize(void);
-
+  void Quit_Fault(void);
   /**
     @Summary
       Enables the specific PWM generator.

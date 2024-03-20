@@ -59,8 +59,8 @@ void CMP1_Initialize(void)
 	SLP1CONH = 0x00; //HME disabled; PSE Negative; SLOPEN disabled; TWME disabled; 
 	SLP1CONL = 0x1000; //HCFSEL PWM1H; SLPSTRT None; SLPSTOPB None; SLPSTOPA None; 
 	SLP1DAT = 0x0B; //SLPDAT 11; 
-	DAC1DATL = 0x459; //DACDATL 1113; 
-	DAC1DATH = 0xA8F; //DACDATH 2703; 
+	DAC1DATL = 0x000; //DACDATL 1113; 
+	DAC1DATH = 0x6E8; //DACDATH 2703; 
     
     // Clearing IF flag before enabling the interrupt.
     IFS4bits.CMP1IF = 0;
@@ -232,6 +232,8 @@ void CMP1_SetHystereticTrigger(CMP1_HYSTERETIC_FUNCTION trigger)
 void __attribute__ ((weak)) CMP1_CallBack(void)
 {
     // Add your custom callback code here
+
+    
 }
 
 /* Interrupt Service routine for CMP1 */
