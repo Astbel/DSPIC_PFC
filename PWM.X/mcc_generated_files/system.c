@@ -124,17 +124,19 @@
 #include "clock.h"
 #include "system.h"
 #include "system_types.h"
-#include "pwm.h"
+#include "cmp1.h"
 #include "uart1.h"
+#include "tmr1.h"
+#include "pwm.h"
 #include "interrupt_manager.h"
 #include "traps.h"
-#include "tmr1.h"
 
 void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();
     CLOCK_Initialize();
     INTERRUPT_Initialize();
+    CMP1_Initialize();
     UART1_Initialize();
     PWM_Initialize();
     TMR1_Initialize();

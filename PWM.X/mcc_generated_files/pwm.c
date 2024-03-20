@@ -118,21 +118,21 @@ void PWM_Initialize(void) {
     PG1STAT = 0x18;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG2STAT = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0;
-    PG1IOCONL = 0x00;
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD enabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
+    PG1IOCONL = 0x8000;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
     PG2IOCONL = 0xC00;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG1IOCONH = 0x1C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG2IOCONH = 0x1C;
-    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG1EVTL = 0x01;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
+    PG1EVTL = 0x00;
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
     PG2EVTL = 0x00;
-    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN enabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
-    PG1EVTH = 0x8000;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
+    PG1EVTH = 0x00;
+    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
     PG2EVTH = 0x00;
     // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
     PG1FPCIL = 0x5A1B;
@@ -142,8 +142,8 @@ void PWM_Initialize(void) {
     PG1FPCIH = 0x300;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG1CLPCIL = 0x00;
+    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    PG1CLPCIL = 0x5000;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2CLPCIL = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
@@ -216,17 +216,17 @@ void PWM_Initialize(void) {
     /*Mode select*/
     // PG1CLPCIHbits.LATMOD = 0;
      
-    // /*Fault event PIN setting Test*/
-    PG1CLPCILbits.PSS = 0b10111; /*Fault source output as EVENT A*/
+    /*Fault event PIN setting Test*/
+    PG1CLPCILbits.PSS = 0b11011; /*Fault source output as EVENT A*/
     PG1CLPCILbits.PPS = 0; /*Fault happen force low output*/
-    PG1CLPCILbits.AQSS = 0b000; /* no source select */
+    PG1CLPCILbits.AQSS = 0b000; /*  select PCI source9*/
     PG1CLPCILbits.AQPS = 0; /* normal type polarity */
 
     /*Unlock Fault PIN event setting Test*/
-    PG1CLPCILbits.TERM = 0b000; /*manual write lock and unlock timting*/
+    PG1CLPCILbits.TERM = 0b111; /*manual write lock and unlock timting*/
     PG1CLPCILbits.SWTERM = 1; /*software unlock pin*/
     PG1CLPCILbits.TSYNCDIS = 0; /*EOC(end of cycle) protect the pwm*/
-    PG1CLPCIHbits.TQSS = 0b111; /*software control pci output*/
+    PG1CLPCIHbits.TQSS = 0b110; /*software control pci output*/
     PG1CLPCIHbits.TQPS = 1; /*反向*/
 #endif
     /* Initialize PWM Generator Interrupt Handler*/
@@ -238,11 +238,11 @@ void PWM_Initialize(void) {
 
     // PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
-    IEC4bits.PWM1IE = 1;
+    IEC4bits.PWM1IE = 0;
 
     // PWM EventA Interrupt
     IFS10bits.PEVTAIF = 0;
-    IEC10bits.PEVTAIE = 1;
+    IEC10bits.PEVTAIE = 0;
 
     // PWM EventB Interrupt
     IFS10bits.PEVTBIF = 0;
@@ -310,14 +310,14 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt() {
         PG1STATbits.UPDREQ = 0;
     }
 
-    GPIO_ON();
+    // GPIO_ON();
     // clear the PWM Generator1 interrupt flag
-    IFS4bits.PWM1IF = 0;
-    if (test_var == True) 
-    {
-        GPIO_OFF();
+    // IFS4bits.PWM1IF = 0;
+    // if (test_var == True) 
+    // {
+        // GPIO_OFF();
         // PG1CONLbits.ON = 0;
-    } 
+    // } 
 }
 
 void __attribute__((weak)) PWM_Generator2_CallBack(void) {
@@ -356,8 +356,8 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt() {
     // clear the PWM EventA interrupt flag
     IFS10bits.PEVTAIF = 0;
 }
-
-void __attribute__((weak)) PWM_EventB_CallBack(void) {
+void __attribute__ ((weak)) PWM_EventB_CallBack(void)
+{
     // Add Application code here
 }
 
@@ -374,8 +374,8 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt() {
     // clear the PWM EventB interrupt flag
     IFS10bits.PEVTBIF = 0;
 }
-
-void __attribute__((weak)) PWM_EventC_CallBack(void) {
+void __attribute__ ((weak)) PWM_EventC_CallBack(void)
+{
     // Add Application code here
 }
 
@@ -389,8 +389,8 @@ void PWM_EventC_Tasks(void) {
         IFS10bits.PEVTCIF = 0;
     }
 }
-
-void __attribute__((weak)) PWM_EventD_CallBack(void) {
+void __attribute__ ((weak)) PWM_EventD_CallBack(void)
+{
     // Add Application code here
 }
 
@@ -512,3 +512,7 @@ void PWM_Duty_Increase(void) {
 
 #endif
 }
+
+
+
+
