@@ -138,8 +138,8 @@ void PWM_Initialize(void) {
     PG1FPCIL = 0x5A1B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FPCIL = 0x00;
-    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
-    PG1FPCIH = 0x300;
+    // TQPS Not inverted; LATMOD enabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive; 
+    PG1FPCIH = 0x10;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
@@ -214,7 +214,7 @@ void PWM_Initialize(void) {
 #if (Latch_Test == True)
 
     /*Mode select*/
-    // PG1CLPCIHbits.LATMOD = 0;
+    PG1CLPCIHbits.LATMOD = 0;
      
     /*Fault event PIN setting Test*/
     PG1CLPCILbits.PSS = 0b11011; /*Fault source output as EVENT A*/

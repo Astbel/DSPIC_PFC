@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "tmr1.h"
 #include "pwm.h"
-
+#include "cmp1.h"
 /**
  Section: File specific functions
 */
@@ -104,7 +104,7 @@ void TMR1_Initialize (void)
     }
 
     IFS0bits.T1IF = false;
-    IEC0bits.T1IE = false;
+    IEC0bits.T1IE = True;
 	
     tmr1_obj.timerElapsed = false;
 
@@ -163,7 +163,19 @@ void __attribute__ ((weak)) TMR1_CallBack(void)
     // Add your custom callback code here
     /*觀測用可以確定Timer是否發生*/
     GPIO_Toggle();
-   
+    /*switch on DAC*/
+    if ((check_BTN_Press() == True))
+    {
+      CMP1_Enable();
+    }
+
+    /*switch off DAC*/
+    else if (check_SW2_Press() == True)
+    {
+      CMP1_Disable();
+    }
+    
+    
     /*duty  變換目前失敗檢測中*/
     // PWM_Duty_Increase();
     

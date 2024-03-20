@@ -56,11 +56,11 @@ void CMP1_Initialize(void)
 	DAC1CONL = 0xC200; //CMPPOL Non Inverted; HYSPOL Rising Edge; HYSSEL None; DACEN enabled; FLTREN disabled; CBE disabled; IRQM Falling edge detect; INSEL CMP1A; DACOEN enabled; 
 
 	//Slope Settings
-	SLP1CONH = 0x8000; //HME disabled; PSE Negative; SLOPEN enabled; TWME disabled; 
+	SLP1CONH = 0x00; //HME disabled; PSE Negative; SLOPEN disabled; TWME disabled; 
 	SLP1CONL = 0x1000; //HCFSEL PWM1H; SLPSTRT None; SLPSTOPB None; SLPSTOPA None; 
-	SLP1DAT = SLP_SLEW_RATE_1; //SLPDAT 11; 
-	DAC1DATL = 0; //DACDATL 1113; 
-	DAC1DATH = DACOUT_VALUE_HIGH_1; //DACDATH 2703; 
+	SLP1DAT = 0x0B; //SLPDAT 11; 
+	DAC1DATL = 0x459; //DACDATL 1113; 
+	DAC1DATH = 0xA8F; //DACDATH 2703; 
     
     // Clearing IF flag before enabling the interrupt.
     IFS4bits.CMP1IF = 0;

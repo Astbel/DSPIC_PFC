@@ -129,7 +129,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="CMP1" name="OperationMode"/>
-         <value>Slope Mode</value>
+         <value>DC Mode</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="CMP1" name="PWMStartTime"/>
@@ -517,7 +517,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="CMP1" registerAlias="SLPCONH"/>
-         <value>32768</value>
+         <value>0</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="CMP1" registerAlias="SLPCONL"/>
@@ -633,7 +633,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="CMP1" registerAlias="SLPCONH" settingAlias="SLOPEN"/>
-         <value>enabled</value>
+         <value>disabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="CMP1" registerAlias="SLPCONH" settingAlias="TWME"/>
@@ -44423,7 +44423,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\cmp1.c</file>
-         <hash>915cad07a3f551258f303984e6a5b909be7be62d6676c997bc07747595ffe455</hash>
+         <hash>4d7bc77acee1557dcae4cd9e2a51b62fb6326f4c18be1f8ce6c3b2b20fd745b1</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\cmp1.h</file>
@@ -44443,7 +44443,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>badec0490afc06b7979a7920f0e4bc0ebad5dfe45d56f353d9f0c53b85355a7b</hash>
+         <hash>cfb0fb9771ea157b969c86ff8cab287ea1c6b7fa255ad9c8cc172443fde391d8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -44455,7 +44455,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>a05da5f3f2aeea45f3c2634203ccb4d4425a8bcde7cab790803a27a2538ffa51</hash>
+         <hash>d3a66ee2d00985bb5cdcfd9284e38446ed91776faadad279996548b1bb16b1de</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
@@ -44479,7 +44479,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>9eb0fee27d8d470f8c07131e888af4c68bfa84b3fe00c9af963adfdcee5075bc</hash>
+         <hash>a14d7c028647b74133e8c64bfea73e8ca7f1e90483f60365aa822efeb9d14da6</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>
