@@ -5,6 +5,8 @@
         "system.h": "c",
         "system_types.h": "c",
         "clock.h": "c",
-        "gpio.h": "c"
+        "gpio.h": "c",
+        "demo.h": "c",
+        "cmp1.h": "c"
     }
 }
