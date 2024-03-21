@@ -83,7 +83,7 @@ extern "C"
 #define BUTTON_S3_PORT PORTEbits.RE9
 #define BUTTON_S3_TRIS TRISEbits.TRISE9
 /*BTN status*/
-#define BUTTON_S1_PRESSED 0
+
 #define BUTTON_S2_PRESSED 0
 #define BUTTON_S3_PRESSED 0
 

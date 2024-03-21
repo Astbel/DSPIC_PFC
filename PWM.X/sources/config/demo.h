@@ -55,7 +55,7 @@
 // PWM declarations
 #define PWM_GENERATOR           1U // Specify index of leading PWM generator instance (1=PG1, 2=PG2, etc)
 #define PWM_FREQUENCY           (float) 200e+3  // Default PWM frequency
-#define PWM_DUTY_RATIO          (float) 0.25    // Default duty ratio setting
+#define PWM_DUTY_RATIO          (float) 0.75    // Default duty ratio setting
 #define PWM_DEADTIME_RISING     (float) 50e-9   // Default rising edge dead time setting
 #define PWM_DEADTIME_FALLING    (float) 80e-9   // Default falling edge dead time setting
 
@@ -72,8 +72,8 @@
 #define DAC_VOLTAGE_HIGH_2      (float) 2.500 // Demo-mode DAC level #2
 #define SLOPE_START_DELAY       (float) 0.10  // Delay in {%] until the slope compensation ramp starts
 #define SLOPE_STOP_DELAY        (float) 0.90  // Delay in [%] until the slope compensation ramp stops
-#define SLOPE_SLEW_RATE_1       (float) 0.200 // Delay in [V/µs] 
-#define SLOPE_SLEW_RATE_2       (float) 0.400 // Delay in [V/µs] 
+#define SLOPE_SLEW_RATE_1       (float) 0.200 // Delay in [V/ï¿½s] 
+#define SLOPE_SLEW_RATE_2       (float) 0.400 // Delay in [V/ï¿½s] 
 
 // DAC Conversion Macros
 #define DAC_GRANULARITY         (float)(DAC_REFERENCE / pow(2.0, DAC_RESOLUTION)) // DAC granularity in [V/tick]

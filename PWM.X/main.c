@@ -49,6 +49,7 @@
 #include "mcc_generated_files/pwm.h"
 #include "sources/Gdac.h"
 #include "sources/Gpwm.h"
+#include "sources/config/demo.h"
 /*
                          Main application
  */
@@ -56,7 +57,7 @@ int main(void)
 {
   /*inital for Generics method*/
   volatile uint16_t retval = True; // Local function return verification variable
-
+  volatile uint8_t test_value = 1;
   /*BTN PIN*/
   //  BUTTON_S1_TRIS = 1;
   // initialize the device
@@ -68,11 +69,28 @@ int main(void)
 
   /*Enable Generics method*/
   retval &= PWM_Enable_Generics();
-   retval &= DAC_Enable_Generics();
+  retval &= DAC_Enable_Generics();
 
   while (1)
   {
-    // Add your application code
+      /*BTN switch change DAC simultion slope compsation*/
+    if (check_SW2_Press() == True)
+    {
+      switch (test_value)
+      {
+      case 1:
+        my_dac->DACxDATH.value = DACOUT_VALUE_HIGH_2; // Decrease the DAC Lower value to increase the Slope rate
+        my_dac->SLPxDAT.value = SLP_SLEW_RATE_2;      // DAC slope rate is set to 400mV/uS
+        test_value = 2;
+        break;
+
+      default:
+        my_dac->SLPxDAT.value = SLP_SLEW_RATE_1;      // DAC slope rate is set to 200mV/uS
+        my_dac->DACxDATH.value = DACOUT_VALUE_HIGH_1; // Decrease the DAC Lower value to increase the Slope rate
+        test_value = 1;
+        break;
+      }
+    }
   }
   return 1;
 }
