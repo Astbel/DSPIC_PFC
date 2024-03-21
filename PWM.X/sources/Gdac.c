@@ -33,7 +33,7 @@
 #include <stddef.h> // include standard definition data types
 
 #include "config/demo.h"
-#include "dac.h"
+#include "Gdac.h"
 
 /* Declaration of user-defined DAC instance */
 volatile struct P33C_DAC_INSTANCE_s* my_dac; // User-specified DAC instance
@@ -76,7 +76,7 @@ volatile uint16_t DAC_Initialize_Generics(void){
 
 }
 
-volatile uint16_t DAC_Enable(void) {
+volatile uint16_t DAC_Enable_Generics(void) {
     
     volatile uint16_t retval=1;
     
@@ -89,7 +89,7 @@ volatile uint16_t DAC_Enable(void) {
     return(retval);
 }
 
-volatile uint16_t DAC_Disable(void) {
+volatile uint16_t DAC_Disable_Generics(void) {
     
     volatile uint16_t retval=1;
     

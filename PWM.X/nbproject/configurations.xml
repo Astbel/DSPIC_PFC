@@ -59,8 +59,8 @@
         </logicalFolder>
         <logicalFolder name="config" displayName="config" projectFiles="true">
         </logicalFolder>
-        <itemPath>sources/dac.c</itemPath>
-        <itemPath>sources/pwm.c</itemPath>
+        <itemPath>sources/Gdac.c</itemPath>
+        <itemPath>sources/Gpwm.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>
@@ -242,6 +242,11 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
       </C30Global>
+      <pkob4hybrid>
+        <property key="memories.programmemory.ranges" value="0-2beff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/user/Desktop/CK_PFC/PWM.X/debug/default/PWM_ptg"/>
+      </pkob4hybrid>
     </conf>
   </confs>
 </configurationDescriptor>

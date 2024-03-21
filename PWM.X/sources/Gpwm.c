@@ -34,7 +34,7 @@
 #include <stddef.h> // include standard definition data types
 
 #include "config/demo.h"
-#include "pwm.h"
+#include "Gpwm.h"
 
 /* Declaration of user-defined PWM instance */
 volatile struct P33C_PWM_GENERATOR_s* my_pg1 ;    // user-defined PWM generator 1 object 
@@ -142,7 +142,7 @@ volatile uint16_t PWM_Initialize_Generics(void) {
     
 }
 
-volatile uint16_t PWM_Enable(void) {
+volatile uint16_t PWM_Enable_Generics(void) {
 
     volatile uint16_t retval=1;
 

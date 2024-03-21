@@ -38,7 +38,7 @@
 #define AUX_CLOCK               (float) 500e+6  // Auxiliary Clock Frequency in [Hz]
 
 // Default DAC peripheral declarations
-#define DAC_REFERENCE           (float) 3.300   // DAC reference voltage (usually AVDD)
+#define DAC_REFERENCE           (float) 3.700   // DAC reference voltage (usually AVDD)
 #define DAC_RESOLUTION          (float)12.000   // DAC resolution in [bit]
 #define DAC_TRANSITION_TIME     (float)340e-9   // Transition Mode Time setting DA09 specified in data sheet
 #define DAC_STEADY_STATE_TIME   (float)550e-9   // Steady-State Time setting DA10 specified in data sheet
@@ -81,6 +81,11 @@
     Comparator.  These could be CMPxA, CMPxB, CMPxD, SPGA1 and SPGA2 (INSEL).
 
 */
+
+/*DAC 改變斜率測試*/
+void slew_rate_1Dac(void);
+void slew_rate_2Dac(void);
+
 typedef enum
 {
 	CMP1_INPUT_CMP1D = 0x3, //CMP1D
@@ -370,6 +375,24 @@ void CMP1_SetInputSource(CMP1_INPUT inpSrc);
 */
 void CMP1_CallBack(void);
 
+/**
+  @Summary
+    This function defines the a Task which can be used by the application in
+    the polling mode.
+
+  @Description
+    The Task function can be called in the main application using the High Speed
+    Comparator, when interrupts are not used.  This would thus introduce the 
+    polling mode feature of the Analog Comparator.
+
+  @Param
+    None.
+
+  @Returns 
+    none.
+ 
+*/
+void CMP1_Tasks(void);
 
 /**
   @Summary

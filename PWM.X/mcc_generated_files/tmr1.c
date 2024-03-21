@@ -1,6 +1,6 @@
 
 /**
-  TMR1 Generated Driver API Source File 
+  TMR1 Generated Driver API Source File
 
   @Company
     Microchip Technology Inc.
@@ -12,8 +12,8 @@
     This is the generated source file for the TMR1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
-    This source file provides APIs for driver for TMR1. 
-    Generation Information : 
+    This source file provides APIs for driver for TMR1.
+    Generation Information :
         Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.171.4
         Device            :  dsPIC33CK256MP508
     The generated drivers are tested against the following:
@@ -76,10 +76,10 @@ void TMR1_CallBack(void);
 
 typedef struct _TMR_OBJ_STRUCT
 {
-    /* Timer Elapsed */
-    volatile bool           timerElapsed;
-    /*Software Counter value*/
-    volatile uint8_t        count;
+  /* Timer Elapsed */
+  volatile bool timerElapsed;
+  /*Software Counter value*/
+  volatile uint8_t count;
 
 } TMR_OBJ;
 
@@ -89,165 +89,158 @@ static TMR_OBJ tmr1_obj;
   Section: Driver Interface
 */
 
-void TMR1_Initialize (void)
+void TMR1_Initialize(void)
 {
-    //TMR 0; 
-    TMR1 = 0x00;
-    //Period = 0.00010016 s; Frequency = 200000000 Hz; PR 312; 
-    PR1 = 0x138;
-    //TCKPS 1:64; PRWIP Write complete; TMWIP Write complete; TON enabled; TSIDL disabled; TCS External; TECS FOSC; TSYNC disabled; TMWDIS disabled; TGATE disabled; 
-    T1CON = 0x8222;
+  // TMR 0;
+  TMR1 = 0x00;
+  // Period = 0.00010016 s; Frequency = 200000000 Hz; PR 312;
+  PR1 = 0x138;
+  // TCKPS 1:64; PRWIP Write complete; TMWIP Write complete; TON enabled; TSIDL disabled; TCS External; TECS FOSC; TSYNC disabled; TMWDIS disabled; TGATE disabled;
+  T1CON = 0x8222;
 
-    if(TMR1_InterruptHandler == NULL)
-    {
-        TMR1_SetInterruptHandler(&TMR1_CallBack);
-    }
+  if (TMR1_InterruptHandler == NULL)
+  {
+    TMR1_SetInterruptHandler(&TMR1_CallBack);
+  }
 
-    IFS0bits.T1IF = false;
-    IEC0bits.T1IE = True;
-	
-    tmr1_obj.timerElapsed = false;
+  IFS0bits.T1IF = false;
+  IEC0bits.T1IE = True;
 
+  tmr1_obj.timerElapsed = false;
 }
 
-
-void __attribute__ ( ( interrupt, no_auto_psv ) ) _T1Interrupt (  )
+void __attribute__((interrupt, no_auto_psv)) _T1Interrupt()
 {
-    /* Check if the Timer Interrupt/Status is set */
+  /* Check if the Timer Interrupt/Status is set */
 
-    //***User Area Begin
+  //***User Area Begin
 
-    // ticker function call;
-    // ticker is 1 -> Callback function gets called everytime this ISR executes
-        if(TMR1_InterruptHandler) 
-        { 
-               TMR1_InterruptHandler(); 
-        }
+  // ticker function call;
+  // ticker is 1 -> Callback function gets called everytime this ISR executes
+  if (TMR1_InterruptHandler)
+  {
+    TMR1_InterruptHandler();
+  }
 
-    //***User Area End
+  //***User Area End
 
-    tmr1_obj.count++;
-    tmr1_obj.timerElapsed = true;
-    IFS0bits.T1IF = false;
+  tmr1_obj.count++;
+  tmr1_obj.timerElapsed = true;
+  IFS0bits.T1IF = false;
 }
 
-void TMR1_Period16BitSet( uint16_t value )
+void TMR1_Period16BitSet(uint16_t value)
 {
-    /* Update the counter values */
-    PR1 = value;
-    /* Reset the status information */
-    tmr1_obj.timerElapsed = false;
+  /* Update the counter values */
+  PR1 = value;
+  /* Reset the status information */
+  tmr1_obj.timerElapsed = false;
 }
 
-uint16_t TMR1_Period16BitGet( void )
+uint16_t TMR1_Period16BitGet(void)
 {
-    return( PR1 );
+  return (PR1);
 }
 
-void TMR1_Counter16BitSet ( uint16_t value )
+void TMR1_Counter16BitSet(uint16_t value)
 {
-    /* Update the counter values */
-    TMR1 = value;
-    /* Reset the status information */
-    tmr1_obj.timerElapsed = false;
+  /* Update the counter values */
+  TMR1 = value;
+  /* Reset the status information */
+  tmr1_obj.timerElapsed = false;
 }
 
-uint16_t TMR1_Counter16BitGet( void )
+uint16_t TMR1_Counter16BitGet(void)
 {
-    return( TMR1 );
+  return (TMR1);
 }
 
 /*call back function here*/
-void __attribute__ ((weak)) TMR1_CallBack(void)
+void __attribute__((weak)) TMR1_CallBack(void)
 {
-    // Add your custom callback code here
-    /*觀測用可以確定Timer是否發生*/
-    // GPIO_Toggle();
-    /*switch on DAC*/
-    if ((check_BTN_Press() == True))
-    {
-      CMP1_Enable();
-    }
+  // Add your custom callback code here
+  /*觀測用可以確定Timer是否發生*/
+  // GPIO_Toggle();
+  /*switch on DAC*/
+  if ((check_BTN_Press() == True))
+  {
+    CMP1_Enable();
+   
+  }
 
-    /*switch off DAC*/
-    else if (check_SW2_Press() == True)
-    {
-      CMP1_Disable();
-      Quit_Fault();
-    }
+  /*switch off DAC*/
+  else if (check_SW2_Press() == True)
+  {
+    CMP1_Disable();
+    Quit_Fault();
+  }
 
-    else if (check_SW3_Press()==True)
-    {
-      /*再次開啟PCI*/
-       PG1CLPCIHbits.SWPCI = 1;
-    }
+  else if (check_SW3_Press() == True)
+  {
+    /*再次開啟PCI*/
+    //  PG1CLPCIHbits.SWPCI = 1;
+    CMP1_Enable();
     
+  }
 
-    /*GPIO PCI status*/
-    
+  /*GPIO PCI status*/
 
-    
-    /*duty  變換目前失敗檢測中*/
-    // PWM_Duty_Increase();
-    
-    /*Freq change*/
+  /*duty  變換目前失敗檢測中*/
+  // PWM_Duty_Increase();
 
-
+  /*Freq change*/
 }
 
-void  TMR1_SetInterruptHandler(void (* InterruptHandler)(void))
-{ 
-    IEC0bits.T1IE = false;
-    TMR1_InterruptHandler = InterruptHandler; 
-    IEC0bits.T1IE = true;
+void TMR1_SetInterruptHandler(void (*InterruptHandler)(void))
+{
+  IEC0bits.T1IE = false;
+  TMR1_InterruptHandler = InterruptHandler;
+  IEC0bits.T1IE = true;
 }
 
-void TMR1_Start( void )
+void TMR1_Start(void)
 {
-    /* Reset the status information */
-    tmr1_obj.timerElapsed = false;
+  /* Reset the status information */
+  tmr1_obj.timerElapsed = false;
 
-    /*Enable the interrupt*/
-    IEC0bits.T1IE = true;
+  /*Enable the interrupt*/
+  IEC0bits.T1IE = true;
 
-    /* Start the Timer */
-    T1CONbits.TON = 1;
+  /* Start the Timer */
+  T1CONbits.TON = 1;
 }
 
-void TMR1_Stop( void )
+void TMR1_Stop(void)
 {
-    /* Stop the Timer */
-    T1CONbits.TON = false;
+  /* Stop the Timer */
+  T1CONbits.TON = false;
 
-    /*Disable the interrupt*/
-    IEC0bits.T1IE = false;
+  /*Disable the interrupt*/
+  IEC0bits.T1IE = false;
 }
 
 bool TMR1_GetElapsedThenClear(void)
 {
-    bool status;
-    
-    status = tmr1_obj.timerElapsed;
+  bool status;
 
-    if(status == true)
-    {
-        tmr1_obj.timerElapsed = false;
-    }
-    return status;
+  status = tmr1_obj.timerElapsed;
+
+  if (status == true)
+  {
+    tmr1_obj.timerElapsed = false;
+  }
+  return status;
 }
 
 int TMR1_SoftwareCounterGet(void)
 {
-    return tmr1_obj.count;
+  return tmr1_obj.count;
 }
 
 void TMR1_SoftwareCounterClear(void)
 {
-    tmr1_obj.count = 0; 
+  tmr1_obj.count = 0;
 }
-
-
-
 
 /**
  End of File

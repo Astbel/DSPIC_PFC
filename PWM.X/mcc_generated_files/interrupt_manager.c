@@ -52,15 +52,6 @@
 */
 void INTERRUPT_Initialize (void)
 {
-    //    CMPI: Comparator 1 
-    //    Priority: 1
-        IPC19bits.CMP1IP = 1;
-    //    PEVTBI: PWM EVENT B
-    //    Priority: 1
-        IPC42bits.PEVTBIP = 1;
-    //    PEVTAI: PWM EVENT A
-    //    Priority: 1
-        IPC42bits.PEVTAIP = 1;
     //    PWM1I: PWM Generator 1
     //    Priority: 1
         IPC16bits.PWM1IP = 1;

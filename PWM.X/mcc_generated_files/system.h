@@ -53,6 +53,11 @@
 
 #ifndef SYSTEM_H
 #define	SYSTEM_H
+
+/*Boolean*/
+#define True   1
+#define False  0
+
 /**
  * Initializes the CPU core control register.
  * @example

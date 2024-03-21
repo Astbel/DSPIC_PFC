@@ -131,11 +131,11 @@ void PWM_Initialize(void)
     PG1EVTL = 0x00;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x00;
-    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN enabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
+    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN enabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG1EVTH = 0x8000;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG2EVTH = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Selects PCI Source#1; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FPCIL = 0x501B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FPCIL = 0x00;
@@ -143,15 +143,15 @@ void PWM_Initialize(void)
     PG1FPCIH = 0x10;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM enabled; PSYNC enabled; TERM Auto-Terminate; AQPS Not inverted; AQSS None; TSYNCDIS Immediately; 
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM enabled; PSYNC enabled; TERM Auto-Terminate; AQPS Not inverted; AQSS None; TSYNCDIS Immediately;
     PG1CLPCIL = 0x90DB;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2CLPCIL = 0x00;
-    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM Acceptance qualifier logic; BPSEL PWM Generator 1; ACP Latched Rising edge; 
+    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM Acceptance qualifier logic; BPSEL PWM Generator 1; ACP Latched Rising edge;
     PG1CLPCIH = 0x420;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2CLPCIH = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FFPCIL = 0x1B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FFPCIL = 0x00;
@@ -212,33 +212,39 @@ void PWM_Initialize(void)
     // DTH 400;
     PG2DTH = 0x190;
     /*Test in latch HPWM 1H*/
+    PG1LEBH = 0x0008; /* PHR=1, Rising edge of PWM1H will trigger the LEB counter*/
+    PG1LEBL = 20;     /* LEB=20*/
+
     /*Rising edge of PWM1H trigger*/
-    PG1LEBH = 0x0008;/*PHR=1 Rising edge*/
-    PG1LEBL = 200; /*LEB=200*/
-    PG1IOCONL = 0x0010;/*PHR=1 Rising edge*/
-    PG1CLPCIL = 0x1A1B;
-    PG1CLPCIH =0x0300;
-    
-    
-#if (Latch_Test == false)
 
-    /*Mode select*/
-    PG1CLPCIHbits.LATMOD = 0; //SR is Set latched Acceot
+    /*PCI setting*/
+    // PG1IOCONL = 0x0010; /* 1 on PWM1L and 0 on PWM1H if CLMT event is active */
+    // PG1CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
+    // PG1CLPCIH = 0x0300; /* Latched PCI as acceptance qualifier, no termination qualifier */
 
-    // /*Fault event PIN setting Test*/
-  
-    PG1CLPCILbits.PSS = 0b11011; /*Fault source output as CMP 1*/
-    PG1CLPCILbits.PPS = 0;       /*Fault happen force low output*/
-    PG1CLPCILbits.AQSS = 0b000;  /*  None force to "1" */
-    PG1CLPCILbits.AQPS = 0;      /* normal type polarity */
+    // PG1TRIGA = 1250; /*Generate Trig 1 at 1.25 us*/
+    // PG1TRIGB = 2000; /*Generate Trig 2 towards eoc (2.5u-0.5u)for transition mode*/
 
-    // /*Unlock Fault PIN event setting Test*/
-    PG1CLPCILbits.TERM = 0b001; /*auto Terminate*/
-    PG1CLPCILbits.SWTERM = 1;   /*software unlock pin*/
-    PG1CLPCILbits.TSYNCDIS = 0; /*EOC(end of cycle) protect the pwm*/
-    PG1CLPCIHbits.TQSS = 0b111; /*software control SWPCI*/
-    PG1CLPCIHbits.TQPS = 1;     /*反向 保護的enable 事件low 測起來因該是不發生*/
-#endif
+    // PG1EVTL = 0x0118; /* Trigger1 updated by TrigA, Auto update of UPTRG */
+    // PG1EVTH = 0x0340; /* Trigger1 updated by TrigB, Disable interrupts */
+
+    // PG1LEBH = 0x0008;/*PHR=1 Rising edge*/
+    // PG1LEBL = 200; /*LEB=200*/
+    // PG1IOCONL = 0x0010;/*PHR=1 Rising edge*/
+    // PG1CLPCIL = 0x1A1B;
+    // PG1CLPCIH =0x0300;
+
+    PCLKCONbits.MCLKSEL = 3; /* Master Clock Source */
+    PG1CONLbits.CLKSEL = 1;  /* Clock selected by MCLKSEL */
+    /*PWM DATA REGISTER*/
+    PG1DC = 0; /*PWM duty cycle set to 0*/
+    /*PCI logic configuration for Hysteretic mode, comparator 1 output as PCI source*/
+    PG1CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
+    PG1CLPCIH = 0x0300; /* Latched PCI signal as acceptance criteria */
+    PG1LEBL = 0x0100;   /* LEB Count = 0x100 */
+    /*Enable PWM macro*/
+    PG1CONLbits.ON = 1; /*PWM module is enabled*/
+
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
@@ -258,8 +264,9 @@ void PWM_Initialize(void)
     IFS10bits.PEVTBIF = 0;
     IEC10bits.PEVTBIE = 0;
 
-    //Wait until AUX PLL clock is locked
-    while(!CLOCK_AuxPllLockStatusGet());
+    // Wait until AUX PLL clock is locked
+    while (!CLOCK_AuxPllLockStatusGet())
+        ;
 
     PG1CONLbits.ON = 1;
     PG2CONLbits.ON = 1;

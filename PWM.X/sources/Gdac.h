@@ -36,8 +36,8 @@
 #include "common/p33c_dac.h"
 
 extern volatile uint16_t DAC_Initialize_Generics(void);
-extern volatile uint16_t DAC_Enable(void);
-extern volatile uint16_t DAC_Disable(void);
+extern volatile uint16_t DAC_Enable_Generics(void);
+extern volatile uint16_t DAC_Disable_Generics(void);
 
 /* Declare global, user-defined DAC instance object */
 extern volatile struct P33C_DAC_INSTANCE_s* my_dac;

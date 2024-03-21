@@ -57,8 +57,8 @@ extern volatile struct P33C_PWM_GENERATOR_s* my_pg3; // pointer to user-defined 
  * ********************************************************************************/    
     
 extern volatile uint16_t PWM_Initialize_Generics(void);
-extern volatile uint16_t PWM_Enable(void);
-extern volatile uint16_t PWM_Disable(void);
+extern volatile uint16_t PWM_Enable_Generics(void);
+// extern volatile uint16_t PWM_Disable(void);
 
 extern volatile struct P33C_PWM_GENERATOR_s* my_pg1;    // user-defined PWM generator 1 object 
 

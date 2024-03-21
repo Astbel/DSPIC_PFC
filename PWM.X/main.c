@@ -47,15 +47,29 @@
 */
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/pwm.h"
+#include "sources/Gdac.h"
+#include "sources/Gpwm.h"
 /*
                          Main application
  */
 int main(void)
 {
+  /*inital for Generics method*/
+  volatile uint16_t retval = True; // Local function return verification variable
+
   /*BTN PIN*/
-//  BUTTON_S1_TRIS = 1;
+  //  BUTTON_S1_TRIS = 1;
   // initialize the device
   SYSTEM_Initialize();
+
+  /* Generics of  pwm and dac*/
+  retval &= PWM_Initialize_Generics();
+  retval &= DAC_Initialize_Generics();
+
+  /*Enable Generics method*/
+  retval &= PWM_Enable_Generics();
+   retval &= DAC_Enable_Generics();
+
   while (1)
   {
     // Add your application code
