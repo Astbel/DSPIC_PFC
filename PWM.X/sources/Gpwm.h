@@ -42,8 +42,9 @@
  * ********************************************************************************/    
     
 /* Declare global, user-defined PWM generator object */    
-extern volatile struct P33C_PWM_GENERATOR_s* my_pg1; // pointer to user-defined leading PWM generator object 
-extern volatile struct P33C_PWM_GENERATOR_s* my_pg3; // pointer to user-defined synchronized PWM generator object 
+extern volatile P33C_PWM_GENERATOR_t my_pg1;    
+extern volatile P33C_PWM_GENERATOR_t my_pg2;
+extern volatile P33C_PWM_GENERATOR_t my_pg3;
 
 // Pre-compiler plausibility check if declared PWM generator index 
 // points to an existing/available PWM generator on the selected device
@@ -55,13 +56,18 @@ extern volatile struct P33C_PWM_GENERATOR_s* my_pg3; // pointer to user-defined 
 /* *********************************************************************************
  * USER FUNCTION PROTOTYPES
  * ********************************************************************************/    
-    
+// PWM declarations for demo code
+#define MOTHER_PWM_GENERATOR      1           // Specify index of PWM generator instance (1=PG1, 3=PG2, etc)
+#define CHILD_ONE_PWM_GENERATOR   2 
+#define CHILD_TWO_PWM_GENERATOR   3    
+
+/**/
+
+
 extern volatile uint16_t PWM_Initialize_Generics(void);
 extern volatile uint16_t PWM_Enable_Generics(void);
 // extern volatile uint16_t PWM_Disable(void);
 
-extern volatile struct P33C_PWM_GENERATOR_s* my_pg1;    // user-defined PWM generator 1 object 
-
-
+#define Test_Dac_Slopee_Comp  0
 #endif	/* XC_PWM_INITIALIZATION_H */
 

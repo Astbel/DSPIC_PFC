@@ -7,6 +7,9 @@
         "clock.h": "c",
         "gpio.h": "c",
         "demo.h": "c",
-        "cmp1.h": "c"
+        "cmp1.h": "c",
+        "stddef.h": "c",
+        "stdbool.h": "c",
+        "gpwm.h": "c"
     }
 }

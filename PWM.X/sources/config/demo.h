@@ -53,7 +53,7 @@
 
 
 // PWM declarations
-#define PWM_GENERATOR           1U // Specify index of leading PWM generator instance (1=PG1, 2=PG2, etc)
+// #define PWM_GENERATOR           1U // Specify index of leading PWM generator instance (1=PG1, 2=PG2, etc)
 #define PWM_FREQUENCY           (float) 200e+3  // Default PWM frequency
 #define PWM_DUTY_RATIO          (float) 0.75    // Default duty ratio setting
 #define PWM_DEADTIME_RISING     (float) 50e-9   // Default rising edge dead time setting

@@ -19,7 +19,51 @@
         Compiler          :  XC16 v2.10
         MPLAB 	          :  MPLAB X v6.05
 */
-
+/* ********************************************************************* *
+ * Digital Power Development Board (DM330029) Test Pin Assignment:
+ * *********************************************************************
+ *
+ * Board Overview:
+ *
+ *         ------------------------------------
+ *        |        DIGITAL TEST POINTS         |
+ *        |------------------------------------|
+ *        |           __________           ----|
+ *        |          |__________|         | USB|
+ *        |         DP PIM SOCKET          ----|
+ *        |                               -----|
+ *        |                   RESET O    | ICSP|
+ *        |      _   _                    -----|
+ *        |   P2|O| |O|P1      USER O          |
+ *         ------------------------------------
+ *
+ * Signal     | Test-Pin              | Comment
+ *            | dsPIC33CK | dsPIC33CH |
+ * ---------------------------------------------------------------------
+ * PWM1H      | TP45      | TP35      | PWM Generator #1 output HIGH
+ * PWM1L      | TP47      | TP38      | PWM Generator #1 output LOW
+ *            |           |           |
+ * PWM2H      | TP42      | TP25      | PWM Generator #2 output HIGH
+ * PWM2L      | TP40      | TP27  (2) | PWM Generator #2 output LOW
+ *            |           |           |
+ * PWM3H      | TP37      | TP36      | PWM Generator #3 output HIGH
+ * PWM3L      | TP41      | TP34      | PWM Generator #3 output LOW
+ *            |           |           |
+ * PWM4H      | TP43      | TP46      | PWM Generator #4 output HIGH
+ * PWM4L      | TP44      | TP48      | PWM Generator #4 output LOW
+ *            |           |           |
+ * PWM5H      | TP35      | (n/a) (3) | PWM Generator #5 output HIGH
+ * PWM5L      | TP38      | (n/a) (3) | PWM Generator #5 output LOW
+ *            |           |           |
+ * PWM6H      | TP31      | (n/a) (3) | PWM Generator #6 output HIGH
+ * PWM6L      | TP33      | (n/a) (3) | PWM Generator #6 output LOW
+ *            |           |           |
+ * PWM7H      | TP25      | (n/a) (3) | PWM Generator #7 output HIGH
+ * PWM7L      | TP27 (1)  | (n/a) (3) | PWM Generator #7 output LOW
+ *            |           |           |
+ * PWM8H      | TP46      | (n/a) (3) | PWM Generator #8 output HIGH
+ * PWM8L      | TP48      | (n/a) (3) | PWM Generator #8 output LOW
+ * ---------------------------------------------------------------------
 /*
     (c) 2020 Microchip Technology Inc. and its subsidiaries. You may use this
     software and any derivatives exclusively with Microchip products.
@@ -65,15 +109,16 @@ int main(void)
 
   /* Generics of  pwm and dac*/
   retval &= PWM_Initialize_Generics();
-  retval &= DAC_Initialize_Generics();
+  // retval &= DAC_Initialize_Generics();
 
   /*Enable Generics method*/
-  retval &= PWM_Enable_Generics();
-  retval &= DAC_Enable_Generics();
+  // retval &= PWM_Enable_Generics();
+  // retval &= DAC_Enable_Generics();
 
   while (1)
   {
-      /*BTN switch change DAC simultion slope compsation*/
+/*BTN switch change DAC simultion slope compsation*/
+#if (Test_Dac_Slopee_Comp == True)
     if (check_SW2_Press() == True)
     {
       switch (test_value)
@@ -91,6 +136,7 @@ int main(void)
         break;
       }
     }
+#endif
   }
   return 1;
 }
