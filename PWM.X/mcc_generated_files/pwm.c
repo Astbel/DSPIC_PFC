@@ -130,8 +130,8 @@ void PWM_Initialize(void)
     PG2IOCONH = 0x1C;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 enabled;
     PG1EVTL = 0x201;
-    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG2EVTL = 0x00;
+    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG2EVTL = 0x08;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG1EVTH = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -180,8 +180,8 @@ void PWM_Initialize(void)
     PG1PHASE = 0x00;
     // PHASE 0;
     PG2PHASE = 0x00;
-    // DC 2500;
-    PG1DC = 0x9C4;
+    // DC 0; 
+    PG1DC = 0x00;
     // DC 2500;
     PG2DC = 0x9C4;
     // DCA 0;
@@ -196,9 +196,9 @@ void PWM_Initialize(void)
     PG1TRIGA = 0x4E2;
     // TRIGA 0;
     PG2TRIGA = 0x00;
-    // TRIGB 1250;
-    PG1TRIGB = 0x4E2;
     // TRIGB 0;
+    PG1TRIGB = 0x00;
+    // TRIGB 0; 
     PG2TRIGB = 0x00;
     // TRIGC 0;
     PG1TRIGC = 0x00;

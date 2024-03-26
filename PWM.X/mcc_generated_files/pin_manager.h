@@ -54,6 +54,152 @@
 /**
     Section: Device Pin Macros
 */
+/**
+  @Summary
+    Sets the GPIO pin, RC7, high using LATC7.
+
+  @Description
+    Sets the GPIO pin, RC7, high using LATC7.
+
+  @Preconditions
+    The RC7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC7 high (1)
+    channel_AN16_SetHigh();
+    </code>
+
+*/
+#define channel_AN16_SetHigh()          (_LATC7 = 1)
+/**
+  @Summary
+    Sets the GPIO pin, RC7, low using LATC7.
+
+  @Description
+    Sets the GPIO pin, RC7, low using LATC7.
+
+  @Preconditions
+    The RC7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC7 low (0)
+    channel_AN16_SetLow();
+    </code>
+
+*/
+#define channel_AN16_SetLow()           (_LATC7 = 0)
+/**
+  @Summary
+    Toggles the GPIO pin, RC7, using LATC7.
+
+  @Description
+    Toggles the GPIO pin, RC7, using LATC7.
+
+  @Preconditions
+    The RC7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RC7
+    channel_AN16_Toggle();
+    </code>
+
+*/
+#define channel_AN16_Toggle()           (_LATC7 ^= 1)
+/**
+  @Summary
+    Reads the value of the GPIO pin, RC7.
+
+  @Description
+    Reads the value of the GPIO pin, RC7.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RC7
+    postValue = channel_AN16_GetValue();
+    </code>
+
+*/
+#define channel_AN16_GetValue()         _RC7
+/**
+  @Summary
+    Configures the GPIO pin, RC7, as an input.
+
+  @Description
+    Configures the GPIO pin, RC7, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC7 as an input
+    channel_AN16_SetDigitalInput();
+    </code>
+
+*/
+#define channel_AN16_SetDigitalInput()  (_TRISC7 = 1)
+/**
+  @Summary
+    Configures the GPIO pin, RC7, as an output.
+
+  @Description
+    Configures the GPIO pin, RC7, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC7 as an output
+    channel_AN16_SetDigitalOutput();
+    </code>
+
+*/
+#define channel_AN16_SetDigitalOutput() (_TRISC7 = 0)
 
 /**
     Section: Function Prototypes
