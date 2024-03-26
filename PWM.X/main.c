@@ -94,8 +94,10 @@
 #include "sources/Gdac.h"
 #include "sources/Gpwm.h"
 #include "sources/config/demo.h"
+#include "mcc_generated_files/GPIO.h"
+
 /*
-                         Main application
+    Main application
  */
 int main(void)
 {
@@ -104,6 +106,7 @@ int main(void)
   volatile uint8_t test_value = 1;
   /*BTN PIN*/
   //  BUTTON_S1_TRIS = 1;
+
   // initialize the device
   SYSTEM_Initialize();
 

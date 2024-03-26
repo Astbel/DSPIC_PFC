@@ -136,7 +136,7 @@ void SYSTEM_Initialize(void)
   PIN_MANAGER_Initialize();
   CLOCK_Initialize();
   INTERRUPT_Initialize();
-  // CMP1_Initialize();
+  CMP1_Initialize();
   UART1_Initialize();
   PWM_Initialize();
   TMR1_Initialize();

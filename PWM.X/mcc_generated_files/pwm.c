@@ -59,16 +59,17 @@ static void (*PWM_Generator1InterruptHandler)(void) = NULL;
 // PWM Default Event Interrupt Handler
 static void (*PWM_EventAInterruptHandler)(void) = NULL;
 static void (*PWM_EventBInterruptHandler)(void) = NULL;
-
+static void PWM_Slaver_ON(void);
+static void PWM_Slaver_OFF(void);
 /*pravite var here*/
 static uint8_t test_var;
 
 void PWM_Initialize(void)
 {
-    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG1CONL = 0x88;
-    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG2CONL = 0x88;
+    // HREN disabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
+    PG1CONL = 0x8;
+    // HREN disabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
+    PG2CONL = 0x8;
     // MCLKSEL AFPLLO - Auxiliary Clock with PLL Enabled; HRERR disabled; LOCK disabled; DIVSEL 1:2;
     PCLKCON = 0x03;
     // FSCL 0;
@@ -113,47 +114,47 @@ void PWM_Initialize(void)
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG1CONH = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG2CONH = 0x01;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG1STAT = 0x00;
-    // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled; 
+    // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG2STAT = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0;
     PG1IOCONL = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0;
     PG2IOCONL = 0x00;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG1IOCONH = 0x1C;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG2IOCONH = 0x1C;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
-    PG1EVTL = 0x09;
-    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 enabled;
+    PG1EVTL = 0x201;
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG1EVTH = 0x00;
-    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled; 
+    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG2EVTH = 0x00;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FPCIL = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FPCIL = 0x00;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FPCIH = 0x00;
-    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive; 
+    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1CLPCIL = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2CLPCIL = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1CLPCIH = 0x00;
-    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive; 
+    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2CLPCIH = 0x00;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FFPCIL = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG2FFPCIL = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FFPCIH = 0x00;
@@ -179,42 +180,43 @@ void PWM_Initialize(void)
     PG1PHASE = 0x00;
     // PHASE 0;
     PG2PHASE = 0x00;
-    // DC 20000; 
-    PG1DC = 0x4E20;
-    // DC 20000; 
-    PG2DC = 0x4E20;
+    // DC 2500;
+    PG1DC = 0x9C4;
+    // DC 2500;
+    PG2DC = 0x9C4;
     // DCA 0;
     PG1DCA = 0x00;
     // DCA 0;
     PG2DCA = 0x00;
-    // PER 39992; 
-    PG1PER = 0x9C38;
-    // PER 39992; 
-    PG2PER = 0x9C38;
-    // TRIGA 10000;
-    PG1TRIGA = 0x2710;
+    // PER 4999;
+    PG1PER = 0x1387;
+    // PER 4999;
+    PG2PER = 0x1387;
+    // TRIGA 1250;
+    PG1TRIGA = 0x4E2;
     // TRIGA 0;
     PG2TRIGA = 0x00;
-    // TRIGB 0;
-    PG1TRIGB = 0x00;
+    // TRIGB 1250;
+    PG1TRIGB = 0x4E2;
     // TRIGB 0;
     PG2TRIGB = 0x00;
     // TRIGC 0;
     PG1TRIGC = 0x00;
     // TRIGC 0;
     PG2TRIGC = 0x00;
-    // DTL 400;
-    PG1DTL = 0x190;
-    // DTL 400;
-    PG2DTL = 0x190;
-    // DTH 400;
-    PG1DTH = 0x190;
-    // DTH 400;
-    PG2DTH = 0x190;
-    /*Test in latch HPWM 1H*/
-    PG1LEBH = 0x0008; /* PHR=1, Rising edge of PWM1H will trigger the LEB counter*/
-    PG1LEBL = 20;     /* LEB=20*/
+    // DTL 50;
+    PG1DTL = 0x32;
+    // DTL 50;
+    PG2DTL = 0x32;
+    // DTH 50;
+    PG1DTH = 0x32;
+    // DTH 50;
+    PG2DTH = 0x32;
 
+    /*switch btn inital*/
+    BUTTON_S1_PRESSED = 1;
+    BUTTON_S2_TRIS = 1;
+    BUTTON_S3_TRIS = 1;
     /*Rising edge of PWM1H trigger*/
 
     /*PCI setting*/
@@ -228,11 +230,19 @@ void PWM_Initialize(void)
     // PG1EVTL = 0x0118; /* Trigger1 updated by TrigA, Auto update of UPTRG */
     // PG1EVTH = 0x0340; /* Trigger1 updated by TrigB, Disable interrupts */
 
-    // PG1LEBH = 0x0008;/*PHR=1 Rising edge*/
-    // PG1LEBL = 200; /*LEB=200*/
-    // PG1IOCONL = 0x0010;/*PHR=1 Rising edge*/
+    /*PCI for PG1*/
+    // PG1LEBH = 0x0008;   /*PHR=1 Rising edge*/
+    // PG1LEBL = 200;      /*LEB=200*/
+    // PG1IOCONL = 0x0010; /*PHR=1 Rising edge*/
     // PG1CLPCIL = 0x1A1B;
-    // PG1CLPCIH =0x0300;
+    // PG1CLPCIH = 0x0300;
+
+    // /*PCI for PG2*/
+    // PG2LEBH = 0x0008;   /*PHR=1 Rising edge*/
+    // PG2LEBL = 200;      /*LEB=200*/
+    // PG2IOCONL = 0x0010; /*PHR=1 Rising edge*/
+    // PG2CLPCIL = 0x1A1B;
+    // PG2CLPCIH = 0x0300;
 
     PCLKCONbits.MCLKSEL = 3; /* Master Clock Source */
     PG1CONLbits.CLKSEL = 1;  /* Clock selected by MCLKSEL */
@@ -242,27 +252,19 @@ void PWM_Initialize(void)
     // PG1CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
     // PG1CLPCIH = 0x0300; /* Latched PCI signal as acceptance criteria */
     // PG1LEBL = 0x0100;   /* LEB Count = 0x100 */
+
+    // PG2CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
+    // PG2CLPCIH = 0x0300; /* Latched PCI signal as acceptance criteria */
+    // PG2LEBL = 0x0100;   /* LEB Count = 0x100 */
     /*Enable PWM macro*/
     // PG1CONLbits.ON = 1; /*PWM module is enabled*/
 
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
-    /* Initialize PWM Generator Interrupt Handler*/
-    PWM_SetEventAInterruptHandler(&PWM_EventA_CallBack);
-    PWM_SetEventBInterruptHandler(&PWM_EventB_CallBack);
-
     // PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
-    IEC4bits.PWM1IE = 0;
-
-    // PWM EventA Interrupt
-    IFS10bits.PEVTAIF = 0;
-    IEC10bits.PEVTAIE = 0;
-
-    // PWM EventB Interrupt
-    IFS10bits.PEVTBIF = 0;
-    IEC10bits.PEVTBIE = 0;
+    IEC4bits.PWM1IE = 1;
 
     // Wait until AUX PLL clock is locked
     while (!CLOCK_AuxPllLockStatusGet())
@@ -284,64 +286,24 @@ void PWM_SetGenerator1InterruptHandler(void *handler)
 
 void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 {
-    // GPIO_Toggle();
-    //  if (PWM_Generator1InterruptHandler)
-    //  {
-    // PWM Generator1 interrupt handler function
-    //  PWM_Generator1InterruptHandler();
-    //  }
+
     /*BTN event */
     if (check_BTN_Press() == True)
     {
-        /*Manunal 版本*/
-        /*要跟新的值 duty Freq*/
-
-        //        PG1FPCILbits.SWTERM=1;
-        // PG1FPCIHbits.SWPCI =1;
-
-        // PG1DC = 0xFA0;
-        // PG1STATbits.UPDREQ = 1;
-        /*Trigger 訊號*/
-
-        // PWM_PeriodSet(PWM_GENERATOR_1, 0xFA0);
+        // PWM_Slaver_ON();
+        PG2CONLbits.ON = 0;
+         GPIO_OFF();
     }
-    else if (check_SW2_Press() == True)
+    else if (check_BTN_Press() == False)
     {
-        /* quit latch mode */
-        // PG1IOCONLbits.OVRDAT = 0b00;
-        // PG1IOCONLbits.OVRENH = 1;
-        // PG1IOCONLbits.OVRENL = 1;
-
-        // /*Reset latch mode*/
-        // PG1STATbits.FLTEVT = 0;   // clear fault event
-        // PG1CLPCIHbits.LATMOD = 1; // reset mode
-
-        // /**/
-        // PG1CLPCIHbits.LATMOD = 0; // Enable fault module again
-        // /*fault isr guess now not sure*/
-        // IEC10bits.PEVTAIE = 0;
-        // IEC10bits.PEVTAIE = 1;
-        // /*disable override*/
-        // PG1IOCONLbits.OVRENH = 0;
-        // PG1IOCONLbits.OVRENL = 0;
-
-        // PG1CLPCIHbits.SWPCI = 0;
+        //    PWM_Slaver_OFF();
+        PG2CONLbits.ON = 1;
+         GPIO_ON();
+       
     }
     else
     {
-        // PG1DC = 0x4E20;
-        // PG1STATbits.UPDREQ = 1;
-        // PG1STATbits.UPDREQ = 0;
     }
-
-    // GPIO_ON();
-    // clear the PWM Generator1 interrupt flag
-    // IFS4bits.PWM1IF = 0;
-    // if (test_var == True)
-    // {
-    // GPIO_OFF();
-    // PG1CONLbits.ON = 0;
-    // }
 }
 
 /*Test quit fault mode*/
@@ -412,6 +374,7 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTAInterrupt()
     // clear the PWM EventA interrupt flag
     IFS10bits.PEVTAIF = 0;
 }
+
 void __attribute__((weak)) PWM_EventB_CallBack(void)
 {
     // Add Application code here
@@ -433,6 +396,7 @@ void __attribute__((interrupt, no_auto_psv)) _PEVTBInterrupt()
     // clear the PWM EventB interrupt flag
     IFS10bits.PEVTBIF = 0;
 }
+
 void __attribute__((weak)) PWM_EventC_CallBack(void)
 {
     // Add Application code here
@@ -450,6 +414,7 @@ void PWM_EventC_Tasks(void)
         IFS10bits.PEVTCIF = 0;
     }
 }
+
 void __attribute__((weak)) PWM_EventD_CallBack(void)
 {
     // Add Application code here
@@ -593,4 +558,15 @@ void PWM_Duty_Increase(void)
         PWM_PeriodSet(PWM_GENERATOR_1, Freq_10KHz);
 
 #endif
+}
+
+/*On off slaver side PWM*/
+static void PWM_Slaver_ON(void)
+{
+    PG2CONLbits.ON = 1;
+}
+
+static void PWM_Slaver_OFF(void)
+{
+    PG2CONLbits.ON = 0;
 }

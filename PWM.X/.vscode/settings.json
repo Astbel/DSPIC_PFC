@@ -11,6 +11,7 @@
         "stddef.h": "c",
         "stdbool.h": "c",
         "gpwm.h": "c",
-        "pin_manager.h": "c"
+        "pin_manager.h": "c",
+        "interrupt_manager.h": "c"
     }
 }
