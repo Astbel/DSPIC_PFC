@@ -9561,7 +9561,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON3L"/>
-         <value>0</value>
+         <value>1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON4H"/>
@@ -9601,7 +9601,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADEIEL"/>
-         <value>0</value>
+         <value>2</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADEISTATH"/>
@@ -9609,7 +9609,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADEISTATL"/>
-         <value>0</value>
+         <value>2</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADFL0CON"/>
@@ -10133,7 +10133,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCI" settingAlias="enable"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCI" settingAlias="flag"/>
@@ -10873,7 +10873,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON3L" settingAlias="CNVCHSEL"/>
-         <value>AN0</value>
+         <value>AN1</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON3L" settingAlias="CNVRTCH"/>
@@ -11041,7 +11041,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADEIEL" settingAlias="EIEN1"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADEIEL" settingAlias="EIEN10"/>
@@ -11145,7 +11145,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADEISTATL" settingAlias="EISTAT1"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADEISTATL" settingAlias="EISTAT10"/>
@@ -56199,11 +56199,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.c</file>
-         <hash>2a3e71eda22176af60545d37bafd5ff84761fa744624c6d9c4cb3dbdf39c657a</hash>
+         <hash>c7ee61f80a26349c421844070198e7e124456eaaed6a5f2de8b26c93925880b6</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.h</file>
-         <hash>d6ec0b253d67a47f7b93ef756916221f4bb81dbd4853518e54d84129472a78af</hash>
+         <hash>c23c0f2bc16cf4e7326bc905627c4c3cea54fafcc54596d8a7773fba3975cb05</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc_module_features.h</file>
@@ -56227,7 +56227,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>0cb3c85fc8ae6afed9e12f0665878484cebe5d39693d63ddf4221c36e5f21c7c</hash>
+         <hash>540954962f2ffc625e4702b1f604769e5f06cd6d2c05ed816b83f57d40c3602b</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
@@ -56239,7 +56239,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>d64437f198c05e20280b99ba1b665cd2923e66e4429430689633d95c3f80ef21</hash>
+         <hash>6ad202ec4fd146f868f90598ad37e5fb3a387fe85389c68728a1fb633c7ef276</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -56275,7 +56275,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>187c51f98a9fd0dc312f0e4ff2830b1f2fd6a73fe5b205c95f8e6c979d599a54</hash>
+         <hash>acaeb605eb743fb796b7400193fd53c9405e0681f3d5a273ec237467c7751457</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

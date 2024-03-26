@@ -284,6 +284,7 @@ void PWM_SetGenerator1InterruptHandler(void *handler)
 
 void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 {
+    // GPIO_Toggle();
     //  if (PWM_Generator1InterruptHandler)
     //  {
     // PWM Generator1 interrupt handler function
@@ -307,30 +308,30 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     else if (check_SW2_Press() == True)
     {
         /* quit latch mode */
-        PG1IOCONLbits.OVRDAT = 0b00;
-        PG1IOCONLbits.OVRENH = 1;
-        PG1IOCONLbits.OVRENL = 1;
+        // PG1IOCONLbits.OVRDAT = 0b00;
+        // PG1IOCONLbits.OVRENH = 1;
+        // PG1IOCONLbits.OVRENL = 1;
 
-        /*Reset latch mode*/
-        PG1STATbits.FLTEVT = 0;   // clear fault event
-        PG1CLPCIHbits.LATMOD = 1; // reset mode
+        // /*Reset latch mode*/
+        // PG1STATbits.FLTEVT = 0;   // clear fault event
+        // PG1CLPCIHbits.LATMOD = 1; // reset mode
 
-        /**/
-        PG1CLPCIHbits.LATMOD = 0; // Enable fault module again
-        /*fault isr guess now not sure*/
-        IEC10bits.PEVTAIE = 0;
-        IEC10bits.PEVTAIE = 1;
-        /*disable override*/
-        PG1IOCONLbits.OVRENH = 0;
-        PG1IOCONLbits.OVRENL = 0;
+        // /**/
+        // PG1CLPCIHbits.LATMOD = 0; // Enable fault module again
+        // /*fault isr guess now not sure*/
+        // IEC10bits.PEVTAIE = 0;
+        // IEC10bits.PEVTAIE = 1;
+        // /*disable override*/
+        // PG1IOCONLbits.OVRENH = 0;
+        // PG1IOCONLbits.OVRENL = 0;
 
-        PG1CLPCIHbits.SWPCI = 0;
+        // PG1CLPCIHbits.SWPCI = 0;
     }
     else
     {
-        PG1DC = 0x4E20;
-        PG1STATbits.UPDREQ = 1;
-        PG1STATbits.UPDREQ = 0;
+        // PG1DC = 0x4E20;
+        // PG1STATbits.UPDREQ = 1;
+        // PG1STATbits.UPDREQ = 0;
     }
 
     // GPIO_ON();
