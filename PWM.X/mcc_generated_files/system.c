@@ -138,7 +138,7 @@ void SYSTEM_Initialize(void)
     INTERRUPT_Initialize();
     // CMP1_Initialize();
     UART1_Initialize();
-    // PWM_Initialize();
+     PWM_Initialize();
     TMR1_Initialize();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);

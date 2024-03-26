@@ -10,6 +10,7 @@
         "cmp1.h": "c",
         "stddef.h": "c",
         "stdbool.h": "c",
-        "gpwm.h": "c"
+        "gpwm.h": "c",
+        "pin_manager.h": "c"
     }
 }

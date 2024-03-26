@@ -108,7 +108,7 @@ int main(void)
   SYSTEM_Initialize();
 
   /* Generics of  pwm and dac*/
-  retval &= PWM_Initialize_Generics();
+//  retval &= PWM_Initialize_Generics();
   // retval &= DAC_Initialize_Generics();
 
   /*Enable Generics method*/

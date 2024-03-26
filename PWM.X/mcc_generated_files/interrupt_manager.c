@@ -67,4 +67,13 @@ void INTERRUPT_Initialize (void)
     //    URXI: UART1 RX
     //    Priority: 1
         IPC2bits.U1RXIP = 1;
+    //    ADCAN24: ADC AN24 Convert Done
+    //    Priority: 1
+        IPC48bits.ADCAN24IP = 1;
+    //    ADCAN1: ADC AN1 Convert Done
+    //    Priority: 1
+        IPC23bits.ADCAN1IP = 1;
+    //    ADCAN25: ADC AN25 Convert Done
+    //    Priority: 1
+        IPC48bits.ADCAN25IP = 1;
 }
