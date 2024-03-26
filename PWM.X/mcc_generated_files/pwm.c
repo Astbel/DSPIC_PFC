@@ -65,10 +65,10 @@ static uint8_t test_var;
 
 void PWM_Initialize(void)
 {
-    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG1CONL = 0x88;
-    // HREN enabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled;
-    PG2CONL = 0x88;
+    // HREN disabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled; 
+    PG1CONL = 0x8;
+    // HREN disabled; MODSEL Independent Edge; TRGCNT 1; CLKSEL Master clock; ON enabled; 
+    PG2CONL = 0x8;
     // MCLKSEL AFPLLO - Auxiliary Clock with PLL Enabled; HRERR disabled; LOCK disabled; DIVSEL 1:2;
     PCLKCON = 0x03;
     // FSCL 0;
@@ -113,8 +113,8 @@ void PWM_Initialize(void)
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG1CONH = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
-    PG2CONH = 0x01;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD Slaved SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
+    PG2CONH = 0x201;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG1STAT = 0x00;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled; 
@@ -123,12 +123,12 @@ void PWM_Initialize(void)
     PG1IOCONL = 0x00;
     // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0; 
     PG2IOCONL = 0x00;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
-    PG1IOCONH = 0x1C;
-    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
-    PG2IOCONH = 0x1C;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
-    PG1EVTL = 0x09;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Push-Pull; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    PG1IOCONH = 0x2C;
+    // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Push-Pull; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high; 
+    PG2IOCONH = 0x2C;
+    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG1EVTL = 0x08;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
     PG2EVTL = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -179,21 +179,21 @@ void PWM_Initialize(void)
     PG1PHASE = 0x00;
     // PHASE 0;
     PG2PHASE = 0x00;
-    // DC 20000; 
-    PG1DC = 0x4E20;
-    // DC 20000; 
-    PG2DC = 0x4E20;
+    // DC 417; 
+    PG1DC = 0x1A1;
+    // DC 417; 
+    PG2DC = 0x1A1;
     // DCA 0;
     PG1DCA = 0x00;
     // DCA 0;
     PG2DCA = 0x00;
-    // PER 39992; 
-    PG1PER = 0x9C38;
-    // PER 39992; 
-    PG2PER = 0x9C38;
-    // TRIGA 10000;
-    PG1TRIGA = 0x2710;
+    // PER 832; 
+    PG1PER = 0x340;
+    // PER 832; 
+    PG2PER = 0x340;
     // TRIGA 0;
+    PG1TRIGA = 0x00;
+    // TRIGA 0; 
     PG2TRIGA = 0x00;
     // TRIGB 0;
     PG1TRIGB = 0x00;
@@ -203,17 +203,14 @@ void PWM_Initialize(void)
     PG1TRIGC = 0x00;
     // TRIGC 0;
     PG2TRIGC = 0x00;
-    // DTL 400;
-    PG1DTL = 0x190;
-    // DTL 400;
-    PG2DTL = 0x190;
-    // DTH 400;
-    PG1DTH = 0x190;
-    // DTH 400;
-    PG2DTH = 0x190;
-    /*Test in latch HPWM 1H*/
-    PG1LEBH = 0x0008; /* PHR=1, Rising edge of PWM1H will trigger the LEB counter*/
-    PG1LEBL = 20;     /* LEB=20*/
+    // DTL 50; 
+    PG1DTL = 0x32;
+    // DTL 50; 
+    PG2DTL = 0x32;
+    // DTH 50; 
+    PG1DTH = 0x32;
+    // DTH 50; 
+    PG2DTH = 0x32;
 
     /*Rising edge of PWM1H trigger*/
 
