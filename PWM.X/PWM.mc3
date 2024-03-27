@@ -16757,7 +16757,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorDutyCycle"/>
-         <value>0</value>
+         <value>25</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorEnable"/>
@@ -16841,7 +16841,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigAInput"/>
-         <value>0.00000250000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</value>
+         <value>0.0000025</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigAInputMaxRnage"/>
@@ -16853,7 +16853,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigBInput"/>
-         <value>0</value>
+         <value>0.0000095</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigBInputMaxRnage"/>
@@ -36861,7 +36861,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1DC"/>
-         <value>0</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1DCA"/>
@@ -36941,7 +36941,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1TRIGB"/>
-         <value>0</value>
+         <value>4750</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1TRIGC"/>
@@ -38161,7 +38161,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1DC" settingAlias="DC1"/>
-         <value>0</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1DCA" settingAlias="DCA1"/>
@@ -38597,7 +38597,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1TRIGB" settingAlias="TRIGB1"/>
-         <value>0</value>
+         <value>4750</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1TRIGC" settingAlias="TRIGC1"/>
@@ -56239,7 +56239,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>139ce27904a2c3768838d1bce89f8c730053ae83c572d1eb8934ccd386754e10</hash>
+         <hash>bc4227424dda70cd49c1a6086e1133567cdfabeadecc0edd56abe2655766f632</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -56251,7 +56251,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>ecc63cd6735139f26ec467765858efecbe0c7c1f5148e5f5e0a9cc20bff66f91</hash>
+         <hash>7143290584408e35463e976cb651473d0db10af6e580e715bc4dbadff6116a0d</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
@@ -56275,7 +56275,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>a0b7c6f4537c86535c9de4850f7c8c3a4daf8ac46fcb626b6dc544266978ca06</hash>
+         <hash>4f9f7f02a97f2986b4234850411b2a4a174cebddc49824f38ba157abafa735d8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

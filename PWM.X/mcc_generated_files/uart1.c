@@ -148,7 +148,7 @@ void UART1_Initialize(void)
 
     UART1_SetRxInterruptHandler(&UART1_Receive_CallBack);
 
-    IEC0bits.U1RXIE = 1;
+    IEC0bits.U1RXIE = 0;
     
     //Make sure to set LAT bit corresponding to TxPin as high before UART initialization
     U1MODEbits.UARTEN = 1;   // enabling UART ON bit

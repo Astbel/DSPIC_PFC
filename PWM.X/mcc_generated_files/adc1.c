@@ -280,9 +280,10 @@ void __attribute__ ( ( __interrupt__ , auto_psv, weak ) ) _ADCAN16Interrupt ( vo
     { 
         ADC1_channel_AN16DefaultInterruptHandler(valchannel_AN16); 
     }
-
+    GPIO_ON();
     //clear the channel_AN16 interrupt flag
     IFS6bits.ADCAN16IF = 0;
+    GPIO_OFF();
 }
 
 void __attribute__ ((weak)) ADC1_channel_AN24_CallBack( uint16_t adcVal )

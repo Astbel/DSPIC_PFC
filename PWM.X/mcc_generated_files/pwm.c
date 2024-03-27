@@ -180,8 +180,8 @@ void PWM_Initialize(void)
     PG1PHASE = 0x00;
     // PHASE 0;
     PG2PHASE = 0x00;
-    // DC 0; 
-    PG1DC = 0x00;
+    // DC 1250; 
+    PG1DC = 0x4E2;
     // DC 2500;
     PG2DC = 0x9C4;
     // DCA 0;
@@ -192,13 +192,13 @@ void PWM_Initialize(void)
     PG1PER = 0x1387;
     // PER 4999;
     PG2PER = 0x1387;
-    // TRIGA 1250;
+    // TRIGA 1250; 
     PG1TRIGA = 0x4E2;
     // TRIGA 0;
     PG2TRIGA = 0x00;
+    // TRIGB 4750; 
+    PG1TRIGB = 0x128E;
     // TRIGB 0;
-    PG1TRIGB = 0x00;
-    // TRIGB 0; 
     PG2TRIGB = 0x00;
     // TRIGC 0;
     PG1TRIGC = 0x00;
@@ -244,8 +244,8 @@ void PWM_Initialize(void)
     // PG2CLPCIL = 0x1A1B;
     // PG2CLPCIH = 0x0300;
 
-    PCLKCONbits.MCLKSEL = 3; /* Master Clock Source */
-    PG1CONLbits.CLKSEL = 1;  /* Clock selected by MCLKSEL */
+    // PCLKCONbits.MCLKSEL = 3; /* Master Clock Source */
+    // PG1CONLbits.CLKSEL = 1;  /* Clock selected by MCLKSEL */
     /*PWM DATA REGISTER*/
     // PG1DC = 0; /*PWM duty cycle set to 0*/
     /*PCI logic configuration for Hysteretic mode, comparator 1 output as PCI source*/
@@ -264,7 +264,7 @@ void PWM_Initialize(void)
 
     // PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
-    IEC4bits.PWM1IE = 1;
+    IEC4bits.PWM1IE = 0;
 
     // Wait until AUX PLL clock is locked
     while (!CLOCK_AuxPllLockStatusGet())
@@ -288,15 +288,14 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 {
 
     /*BTN event */
+    #if(TEST_Slaver_ONOFF==True)
     if (check_BTN_Press() == True)
     {
-        // PWM_Slaver_ON();
         PG2CONLbits.ON = 0;
          GPIO_OFF();
     }
     else if (check_BTN_Press() == False)
     {
-        //    PWM_Slaver_OFF();
         PG2CONLbits.ON = 1;
          GPIO_ON();
        
@@ -304,6 +303,7 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     else
     {
     }
+    #endif
 }
 
 /*Test quit fault mode*/

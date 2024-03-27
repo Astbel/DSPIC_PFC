@@ -93,6 +93,7 @@ extern "C"
 #define Test_Phase 1
 #define Test_PTPER_RESET 1
 #define Latch_Test 1
+#define TEST_Slaver_ONOFF 0
 /*Boolean */
 #define True 1
 #define False 0

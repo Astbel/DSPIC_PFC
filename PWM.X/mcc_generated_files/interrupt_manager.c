@@ -57,7 +57,7 @@ void INTERRUPT_Initialize (void)
         IPC16bits.PWM1IP = 1;
     //    ADCAN16: ADC AN16 Convert Done
     //    Priority: 1
-        IPC26bits.ADCAN16IP = 1;
+        IPC26bits.ADCAN16IP = 6;
     //    ADCAN24: ADC AN24 Convert Done
     //    Priority: 1
         IPC48bits.ADCAN24IP = 1;
