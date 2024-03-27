@@ -21,6 +21,7 @@
         MPLAB 	          :  MPLAB X v6.05
 */
 
+
 /**
   Section: Included Files
 */
@@ -44,19 +45,24 @@ void CMP1_Initialize(void)
     // Disable the CMP module before the initialization
     CMP1_Disable();
 
-    /*DAC DATA REGISTERS*/
-    DACCTRL1Lbits.CLKSEL = 0;     /* APLL VCODIVMUX set at 500MHz */
-    DAC1DATLbits.DACDATL = 0x400; /* Lower data for HM */
-    DAC1DATHbits.DACDATH = 0xC00; /* Upper data for HM */
-    DAC1CONHbits.TMCB = 100;      /* DAC LEB data */
-    SLP1CONLbits.HCFSEL = 1;      /* 1 for PWM1H */
-    SLP1CONHbits.SLOPEN = 0;      /* Disable Slope compensation */
-    SLP1CONHbits.HME = 1;         /* Enable Hysteretic Mode */
-    DAC1CONLbits.INSEL = 1;       /* Select CMP1B input */
-    DAC1CONLbits.DACEN = 1;       /* Enable Master DAC */
-    DACCTRL1Lbits.DACON = 1;      /* Enable DAC1 */
 
-    // CMP1_Enable();
+	// Comparator Register settings
+	DACCTRL1L = 0x80; //CLKDIV 1:1; DACON disabled; DACSIDL disabled; FCLKDIV 1:1; CLKSEL AFPLLO - Auxiliary Clock with PLL Enabled ; 
+	DACCTRL2L = 0x55; //TMODTIME 85; 
+	DACCTRL2H = 0x8A; //SSTIME 138; 
+	DAC1CONH = 0x00; //TMCB 0; 
+	DAC1CONL = 0xA700; //CMPPOL Non Inverted; HYSPOL Rising Edge; HYSSEL None; DACEN enabled; FLTREN enabled; CBE enabled; IRQM Rising edge detect; INSEL CMP1A; DACOEN enabled; 
+
+	//Slope Settings
+	SLP1CONH = 0x800; //HME enabled; PSE Negative; SLOPEN disabled; TWME disabled; 
+	SLP1CONL = 0x1101; //HCFSEL PWM1H; SLPSTRT PWM1 Trigger1; SLPSTOPB None; SLPSTOPA PWM1 Trigger2; 
+	SLP1DAT = 0x0F; //SLPDAT 15; 
+	DAC1DATL = 0x9C4; //DACDATL 2500; 
+	DAC1DATH = 0xFA0; //DACDATH 4000; 
+    
+	
+    CMP1_Enable();
+
 }
 
 /******************************************************************************
@@ -217,7 +223,7 @@ void CMP1_SetHystereticTrigger(CMP1_HYSTERETIC_FUNCTION trigger)
 }
 
 /* Callback function for the CMP1 module */
-void __attribute__((weak)) CMP1_CallBack(void)
+void __attribute__ ((weak)) CMP1_CallBack(void)
 {
     // Add your custom callback code here
 }
@@ -234,7 +240,7 @@ void __attribute__((weak)) CMP1_CallBack(void)
  ******************************************************************************/
 void CMP1_Tasks(void)
 {
-    if (IFS4bits.CMP1IF)
+	if(IFS4bits.CMP1IF)
     {
         // CMP1 callback function
         CMP1_CallBack();

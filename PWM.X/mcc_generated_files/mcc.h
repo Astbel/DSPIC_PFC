@@ -54,14 +54,14 @@
 #include "reset.h"
 
 #include "pwm.h"
-#include "reset.h"
-#include "uart1.h"
-#include "tmr1.h"
 #include "watchdog.h"
-#include "cmp1.h"
 #include "adc1.h"
+#include "tmr1.h"
+#include "reset.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "uart1.h"
+#include "cmp1.h"
 
 #warning "This file will be removed in future MCC releases. Use system.h instead."
 

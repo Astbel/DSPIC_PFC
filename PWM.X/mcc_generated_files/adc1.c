@@ -62,7 +62,7 @@ static void (*ADC1_channel_AN25DefaultInterruptHandler)(uint16_t adcVal);
   Section: Driver Interface
 */
 
-void ADC1_Initialize(void)
+void ADC1_Initialize (void)
 {
     // ADSIDL disabled; ADON enabled;
     ADCON1L = (0x8000 & 0x7FFF); //Disabling ADON bit
@@ -152,9 +152,9 @@ void ADC1_Initialize(void)
     ADCORE0H = 0x300;
     // RES 12-bit resolution; EISEL Early interrupt is generated 1 TADCORE clock prior to data being ready; ADCS 2;
     ADCORE1H = 0x300;
-    // EIEN9 disabled; EIEN7 disabled; EIEN8 disabled; EIEN5 disabled; EIEN6 disabled; EIEN3 disabled; EIEN4 disabled; EIEN1 enabled; EIEN2 disabled; EIEN13 disabled; EIEN0 disabled; EIEN12 disabled; EIEN11 disabled; EIEN10 disabled; EIEN15 disabled; EIEN14 disabled;
-    ADEIEL = 0x02;
-    // EIEN17 disabled; EIEN16 disabled; EIEN25 disabled; EIEN19 disabled; EIEN18 disabled; EIEN20 disabled; EIEN24 disabled; EIEN23 disabled; EIEN22 disabled; EIEN21 disabled;
+    // EIEN9 disabled; EIEN7 disabled; EIEN8 disabled; EIEN5 disabled; EIEN6 disabled; EIEN3 disabled; EIEN4 disabled; EIEN1 disabled; EIEN2 disabled; EIEN13 disabled; EIEN0 disabled; EIEN12 disabled; EIEN11 disabled; EIEN10 disabled; EIEN15 disabled; EIEN14 disabled; 
+    ADEIEL = 0x00;
+    // EIEN17 disabled; EIEN16 disabled; EIEN25 disabled; EIEN19 disabled; EIEN18 disabled; EIEN20 disabled; EIEN24 disabled; EIEN23 disabled; EIEN22 disabled; EIEN21 disabled; 
     ADEIEH = 0x00;
     // C0CIE disabled; C1CIE disabled; SHRCIE disabled; WARMTIME 32768 Source Clock Periods;
     ADCON5H = (0xF00 & 0xF0FF); //Disabling WARMTIME bit
@@ -168,15 +168,15 @@ void ADC1_Initialize(void)
     // Clearing channel_AN16 interrupt flag.
     IFS6bits.ADCAN16IF = 0;
     // Enabling channel_AN16 interrupt.
-    IEC6bits.ADCAN16IE = 1;
+    IEC6bits.ADCAN16IE = 0;
     // Clearing channel_AN24 interrupt flag.
     IFS12bits.ADCAN24IF = 0;
     // Enabling channel_AN24 interrupt.
-    IEC12bits.ADCAN24IE = 1;
+    IEC12bits.ADCAN24IE = 0;
     // Clearing channel_AN25 interrupt flag.
     IFS12bits.ADCAN25IF = 0;
     // Enabling channel_AN25 interrupt.
-    IEC12bits.ADCAN25IE = 1;
+    IEC12bits.ADCAN25IE = 0;
 
     // Setting WARMTIME bit
     ADCON5Hbits.WARMTIME = 0xF;
