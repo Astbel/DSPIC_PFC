@@ -24,6 +24,7 @@
         <itemPath>mcc_generated_files/adc_module_features.h</itemPath>
         <itemPath>mcc_generated_files/cmp1.h</itemPath>
         <itemPath>mcc_generated_files/adc1.h</itemPath>
+        <itemPath>mcc_generated_files/cmp2.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -55,6 +56,7 @@
         <itemPath>mcc_generated_files/cmp1.c</itemPath>
         <itemPath>mcc_generated_files/adc1.c</itemPath>
         <itemPath>mcc_generated_files/GPIO.c</itemPath>
+        <itemPath>mcc_generated_files/cmp2.c</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
     </logicalFolder>

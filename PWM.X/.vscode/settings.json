@@ -14,6 +14,7 @@
         "pin_manager.h": "c",
         "interrupt_manager.h": "c",
         "traps.h": "c",
-        "uart1.h": "c"
+        "uart1.h": "c",
+        "adc1.h": "c"
     }
 }

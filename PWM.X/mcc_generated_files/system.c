@@ -140,6 +140,7 @@ void SYSTEM_Initialize(void)
   CLOCK_Initialize();
   INTERRUPT_Initialize();
   CMP1_Initialize();
+  CMP2_Initialize();
   UART1_Initialize();
   PWM_Initialize();
   TMR1_Initialize();

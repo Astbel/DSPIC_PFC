@@ -59,6 +59,7 @@
 #include "traps.h"
 #include "cmp1.h"
 #include "adc1.h"
+#include "cmp2.h"
 #include "watchdog.h"
 #include "tmr1.h"
 #include "uart1.h"

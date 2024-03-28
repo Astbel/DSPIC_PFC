@@ -26,6 +26,7 @@
 */
 #include "pwm.h"
 #include "cmp1.h"
+#include "cmp1.h"
 #include "GPIO.h"
 /**
   Section: CMP1 APIs
@@ -267,16 +268,17 @@ void CBC_Function_Task(CBC_Simulation CBC_Level)
         PG1STATbits.UPDREQ = 1;
         PG2STATbits.UPDREQ = 1;
         /*Updata DAC value*/
-        DAC1DATH = 0xFA0; /*Upper limit*/
+        DAC1DATH = 0x9A0; /*Upper limit*/
         break;
 
     case Slope_B: /*90 Current limit duty output*/
 
-        PG1DC = 0x1194; /*duty 90*/
+        // PG1DC = 0x1194; /*duty 90*/
         /*manuel SOC updata*/
-        PG1STATbits.UPDREQ = 1;
+        // PG1STATbits.UPDREQ = 1;
         /*Updata DAC value*/
-        DAC1DATH = 0xFA0; /*Upper limit 80 duty*/
+        // DAC1DATH = 0xFA0; /*Upper limit 80 duty*/
+           DAC2DATH  = 0xFA0;
         break;
 
     case Slope_C: /*Shunt down*/

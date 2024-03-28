@@ -140,31 +140,31 @@ void PWM_Initialize(void)
     // PSS Comparator 1 output; PPS Inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
     PG1FPCIL = 0x1A3B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG2FPCIL = 0x1A3B;
+    PG2FPCIL = 0x00;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FPCIH = 0x00;
-    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched; 
-    PG2FPCIH = 0x300;
+    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 2; ACP Latched; 
+    PG2FPCIH = 0x1300;
     // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
     PG1CLPCIL = 0x121B;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
-    PG2CLPCIL = 0x121B;
+    // PSS Comparator 2 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
+    PG2CLPCIL = 0x121C;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG1CLPCIH = 0x300;
-    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
-    PG2CLPCIH = 0x300;
+    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 2; ACP Latched; 
+    PG2CLPCIH = 0x1300;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FFPCIL = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
-    PG2FFPCIL = 0x00;
+    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC; 
+    PG2FFPCIL = 0x1000;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FFPCIH = 0x00;
-    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
-    PG2FFPCIH = 0x00;
+    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 2; ACP Level-sensitive; 
+    PG2FFPCIH = 0x1000;
     // PSS Comparator 1 output; PPS Inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
     PG1SPCIL = 0x123B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG2SPCIL = 0x123B;
+    PG2SPCIL = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG1SPCIH = 0x300;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
@@ -280,11 +280,11 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
         // PG1STATbits.UPDREQ = 1;
         // PG1STATbits.UPDREQ = 0;
     }
-    // else if (check_SW2_Press() == False)
-    // {
-    //     GPIO_Toggle(PIN_5);
-    //     CBC_Function_Task(Level_2);
-    // }
+    else if (check_SW3_Press() == False)
+    {
+        // GPIO_Toggle(PIN_5);
+        CBC_Function_Task(Level_2);
+    }
     // else if (check_SW3_Press() == False)
     // {
     //     GPIO_Toggle(PIN_5);
