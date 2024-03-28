@@ -115,7 +115,7 @@ void PWM_Initialize(void)
     PWMEVTF = 0x00;
     // MSTEN disabled; TRGMOD Single trigger mode; SOCS Self-trigger; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
     PG1CONH = 0x00;
-    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled;
+    // MSTEN disabled; TRGMOD Single trigger mode; SOCS Trigger output selected by PG1 or PG5; UPDMOD SOC update; MPHSEL disabled; MPERSEL disabled; MDCSEL disabled; 
     PG2CONH = 0x01;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG1STAT = 0x00;
@@ -137,40 +137,40 @@ void PWM_Initialize(void)
     PG1EVTH = 0x80;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG2EVTH = 0x00;
+    // PSS Comparator 1 output; PPS Inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
+    PG1FPCIL = 0x1A3B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG1FPCIL = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG2FPCIL = 0x00;
+    PG2FPCIL = 0x1A3B;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FPCIH = 0x00;
-    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
-    PG2FPCIH = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
-    PG1CLPCIL = 0x1A1B;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
-    PG2CLPCIL = 0x1A1B;
+    // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched; 
+    PG2FPCIH = 0x300;
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
+    PG1CLPCIL = 0x121B;
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
+    PG2CLPCIL = 0x121B;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG1CLPCIH = 0x300;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG2CLPCIH = 0x300;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
     PG1FFPCIL = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
     PG2FFPCIL = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG1FFPCIH = 0x00;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FFPCIH = 0x00;
-    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
-    PG1SPCIL = 0x1A1B;
+    // PSS Comparator 1 output; PPS Inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Not inverted; AQSS LEB is active; TSYNCDIS PWM EOC; 
+    PG1SPCIL = 0x123B;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG2SPCIL = 0x00;
+    PG2SPCIL = 0x123B;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG1SPCIH = 0x300;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2SPCIH = 0x00;
-    // LEB 256;
-    PG1LEBL = 0x100;
+    // LEB 512; 
+    PG1LEBL = 0x200;
     // LEB 0;
     PG2LEBL = 0x00;
     // PWMPCI PWM1; PLR disabled; PLF disabled; PHR disabled; PHF disabled;
@@ -231,24 +231,6 @@ void PWM_Initialize(void)
     // PG1EVTL = 0x0118; /* Trigger1 updated by TrigA, Auto update of UPTRG */
     // PG1EVTH = 0x0340; /* Trigger1 updated by TrigB, Disable interrupts */
 
-    /*PCI for PG1*/
-    // PG1LEBH = 0x0008;   /*PHR=1 Rising edge*/
-    // PG1LEBL = 200;      /*LEB=200*/
-    // PG1IOCONL = 0x0010; /*PHR=1 Rising edge*/
-    // PG1CLPCIL = 0x1A1B;
-    // PG1CLPCIH = 0x0300;
-
-    // /*PCI for PG2*/
-    // PG2LEBH = 0x0008;   /*PHR=1 Rising edge*/
-    // PG2LEBL = 200;      /*LEB=200*/
-    // PG2IOCONL = 0x0010; /*PHR=1 Rising edge*/
-    // PG2CLPCIL = 0x1A1B;
-    // PG2CLPCIH = 0x0300;
-
-    // PCLKCONbits.MCLKSEL = 3; /* Master Clock Source */
-    // PG1CONLbits.CLKSEL = 1;  /* Clock selected by MCLKSEL */
-    /*PWM DATA REGISTER*/
-    // PG1DC = 0; /*PWM duty cycle set to 0*/
     /*PCI logic configuration for Hysteretic mode, comparator 1 output as PCI source*/
     // PG1CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
     // PG1CLPCIH = 0x0300; /* Latched PCI signal as acceptance criteria */
@@ -257,9 +239,7 @@ void PWM_Initialize(void)
     // PG2CLPCIL = 0x123B; /* ACMP1 out selected as PCI input, latched PCI acceptance */
     // PG2CLPCIH = 0x0300; /* Latched PCI signal as acceptance criteria */
     // PG2LEBL = 0x0100;   /* LEB Count = 0x100 */
-    /*Enable PWM macro*/
-    // PG1CONLbits.ON = 1; /*PWM module is enabled*/
-
+    
     /* Initialize PWM Generator Interrupt Handler*/
     PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
 
@@ -290,10 +270,10 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 
 /*BTN event */
 #if (TEST_Slaver_ONOFF == True)
-    if (check_BTN_Press() == True)
+    if (check_BTN_Press() == False)
     {
         // PG2CONLbits.ON = 0;
-        GPIO_Toggle(PIN_5);
+        // GPIO_Toggle(PIN_5);
         CBC_Function_Task(Level_1);
         // change PDC1
         // PG1DC = 0xFFF0;

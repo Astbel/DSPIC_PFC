@@ -262,7 +262,7 @@ void CBC_Function_Task(CBC_Simulation CBC_Level)
     {
     case Slope_A:      /*80 Current limit duty output*/
         PG1DC = 0x9C4; /*duty 50*/
-        PG2DC = 0x4E2;
+        PG2DC = 0x9C4;
         /*manuel SOC updata*/
         PG1STATbits.UPDREQ = 1;
         PG2STATbits.UPDREQ = 1;
