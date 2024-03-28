@@ -105,7 +105,7 @@ void TMR1_Initialize(void)
   }
 
   IFS0bits.T1IF = false;
-  IEC0bits.T1IE = True;
+  IEC0bits.T1IE = False;
 
   tmr1_obj.timerElapsed = false;
 }
@@ -161,7 +161,7 @@ void __attribute__((weak)) TMR1_CallBack(void)
 {
   // Add your custom callback code here
   /*觀測用可以確定Timer是否發生*/
-  GPIO_Toggle(PIN_4);
+  // GPIO_Toggle(PIN_4);
   #if(Timer_BTN_Task==True)
   if ((check_BTN_Press() == True))
   {

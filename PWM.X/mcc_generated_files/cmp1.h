@@ -32,9 +32,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/*Public method*/
+
+
 /*slope for DAC setting*/
-
-
 #define AUX_CLOCK               (float) 500e+6  // Auxiliary Clock Frequency in [Hz]
 
 // Default DAC peripheral declarations

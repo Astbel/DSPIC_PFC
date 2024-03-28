@@ -19,6 +19,17 @@
 #define GPIO_LAT_6 LATEbits.LATE6
 #define GPIO_TRIS_6 TRISEbits.TRISE6
 
+/*CBC level*/
+#define Slope_A 1
+#define Slope_B 2
+#define Slope_C 3
+/*CBC method*/
+typedef enum
+{
+    Level_1=1,
+    Level_2,
+    Level_3,
+}CBC_Simulation;
 
 typedef enum
 {
@@ -28,6 +39,7 @@ typedef enum
 }GPIO_Pin_Name;
 
 extern GPIO_Pin_Name GPIO_Name;
+extern CBC_Simulation CBC_Level;
 
 // 定义 GPIO 的指针类型
 typedef struct

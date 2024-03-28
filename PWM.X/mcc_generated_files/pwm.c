@@ -49,6 +49,7 @@
 #include "pwm.h"
 #include "clock.h"
 #include "GPIO.h"
+#include "cmp1.h"
 /**
  Section: Driver Interface Function Definitions
  */
@@ -120,18 +121,18 @@ void PWM_Initialize(void)
     PG1STAT = 0x00;
     // TRSET disabled; UPDREQ disabled; CLEVT disabled; TRCLR disabled; CAP disabled; SEVT disabled; FFEVT disabled; UPDATE disabled; FLTEVT disabled;
     PG2STAT = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0;
-    PG1IOCONL = 0x00;
-    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 0;
-    PG2IOCONL = 0x00;
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
+    PG1IOCONL = 0xC00;
+    // FLTDAT 0; DBDAT 0; SWAP disabled; OVRENH disabled; OVRENL disabled; OSYNC User output overrides are synchronized to the local PWM time base; CLMOD disabled; FFDAT 0; CLDAT 0; OVRDAT 3;
+    PG2IOCONL = 0xC00;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG1IOCONH = 0x1C;
     // PENL enabled; DTCMPSEL PCI Sync Logic; PMOD Independent; POLL Active-high; PENH enabled; CAPSRC Software; POLH Active-high;
     PG2IOCONH = 0x1C;
     // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL Trigger A compare event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 enabled;
     PG1EVTL = 0x201;
-    // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
-    PG2EVTL = 0x08;
+    // UPDTRG Manual; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled; 
+    PG2EVTL = 0x00;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 enabled;
     PG1EVTH = 0x80;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
@@ -144,12 +145,12 @@ void PWM_Initialize(void)
     PG1FPCIH = 0x00;
     // TQPS Not inverted; LATMOD disabled; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
     PG2FPCIH = 0x00;
-    // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
-    PG1CLPCIL = 0x00;
+    // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
+    PG1CLPCIL = 0x1A1B;
     // PSS Comparator 1 output; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Auto-Terminate; AQPS Inverted; AQSS LEB is active; TSYNCDIS PWM EOC;
     PG2CLPCIL = 0x1A1B;
-    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Level-sensitive;
-    PG1CLPCIH = 0x00;
+    // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
+    PG1CLPCIH = 0x300;
     // PCIGT disabled; TQPS Not inverted; SWPCI Drives '0'; BPEN disabled; TQSS None; SWPCIM PCI acceptance logic; BPSEL PWM Generator 1; ACP Latched;
     PG2CLPCIH = 0x300;
     // PSS Tied to 0; PPS Not inverted; SWTERM disabled; PSYNC disabled; TERM Manual Terminate; AQPS Not inverted; AQSS None; TSYNCDIS PWM EOC;
@@ -289,33 +290,37 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
 
 /*BTN event */
 #if (TEST_Slaver_ONOFF == True)
-    if (check_BTN_Press() == False)
+    if (check_BTN_Press() == True)
     {
         // PG2CONLbits.ON = 0;
-        //  GPIO_OFF();
-
+        GPIO_Toggle(PIN_5);
+        CBC_Function_Task(Level_1);
         // change PDC1
         // PG1DC = 0xFFF0;
         // PG1STATbits.UPDREQ = 1;
         // PG1STATbits.UPDREQ = 0;
     }
-    else if (check_SW2_Press() == False)
-    {
-        // PG2CONLbits.ON = 1;
-        //  GPIO_ON();
-
-        // relase back pdc duty
-        // PG1DC=0x4E20;
-        //  PG1STATbits.UPDREQ = 1;
-        //   PG1STATbits.UPDREQ = 0;
-    }
+    // else if (check_SW2_Press() == False)
+    // {
+    //     GPIO_Toggle(PIN_5);
+    //     CBC_Function_Task(Level_2);
+    // }
+    // else if (check_SW3_Press() == False)
+    // {
+    //     GPIO_Toggle(PIN_5);
+    //     CBC_Function_Task(Level_3);
+    // }
     else
     {
-        //  PG1DC = 0x9C4;
-        //  PG1STATbits.UPDREQ = 0;
+        /*exception for unpressing btn*/
+        PG1DC = 0x9C4;
+        /*relase Dac_value */
+        DAC1DATH = 0;
     }
 
 #endif
+
+    /*ISR flag */
     IFS4bits.PWM1IF = 0;
 }
 

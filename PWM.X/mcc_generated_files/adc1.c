@@ -172,15 +172,15 @@ void ADC1_Initialize (void)
     // Clearing channel_AN16 interrupt flag.
     IFS6bits.ADCAN16IF = 0;
     // Enabling channel_AN16 interrupt.
-    IEC6bits.ADCAN16IE = 1;
+    IEC6bits.ADCAN16IE = 0;
     // Clearing channel_AN24 interrupt flag.
     IFS12bits.ADCAN24IF = 0;
     // Enabling channel_AN24 interrupt.
-    IEC12bits.ADCAN24IE = 1;
+    IEC12bits.ADCAN24IE = 0;
     // Clearing channel_AN25 interrupt flag.
     IFS12bits.ADCAN25IF = 0;
     // Enabling channel_AN25 interrupt.
-    IEC12bits.ADCAN25IE = 1;
+    IEC12bits.ADCAN25IE = 0;
 
     // Setting WARMTIME bit
     ADCON5Hbits.WARMTIME = 0xF;

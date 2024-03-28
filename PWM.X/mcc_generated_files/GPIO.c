@@ -1,7 +1,7 @@
 #include "GPIO.h"
 
 GPIO_Pin_Name GPIO_Name;
-
+CBC_Simulation CBC_Level;
 /*Gerinec  initail GPIO method*/
 void GPIO_Init(void)
 {

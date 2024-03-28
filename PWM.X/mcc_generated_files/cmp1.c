@@ -21,13 +21,12 @@
         MPLAB 	          :  MPLAB X v6.05
 */
 
-
 /**
   Section: Included Files
 */
-
+#include "pwm.h"
 #include "cmp1.h"
-
+#include "GPIO.h"
 /**
   Section: CMP1 APIs
 *****************************************************************************************/
@@ -45,8 +44,8 @@ void CMP1_Initialize(void)
     // Disable the CMP module before the initialization
     CMP1_Disable();
 
-
-	// Comparator Register settings
+	
+    // Comparator Register settings
 	DACCTRL1L = 0x80; //CLKDIV 1:1; DACON disabled; DACSIDL disabled; FCLKDIV 1:1; CLKSEL AFPLLO - Auxiliary Clock with PLL Enabled ; 
 	DACCTRL2L = 0x55; //TMODTIME 85; 
 	DACCTRL2H = 0x8A; //SSTIME 138; 
@@ -54,12 +53,12 @@ void CMP1_Initialize(void)
 	DAC1CONL = 0xA700; //CMPPOL Non Inverted; HYSPOL Rising Edge; HYSSEL None; DACEN enabled; FLTREN enabled; CBE enabled; IRQM Rising edge detect; INSEL CMP1A; DACOEN enabled; 
 
 	//Slope Settings
-	SLP1CONH = 0x800; //HME enabled; PSE Negative; SLOPEN disabled; TWME disabled; 
+	SLP1CONH = 0x00; //HME disabled; PSE Negative; SLOPEN disabled; TWME disabled; 
 	SLP1CONL = 0x1101; //HCFSEL PWM1H; SLPSTRT PWM1 Trigger1; SLPSTOPB None; SLPSTOPA PWM1 Trigger2; 
 	SLP1DAT = 0x0F; //SLPDAT 15; 
 	DAC1DATL = 0x9C4; //DACDATL 2500; 
 	DAC1DATH = 0xFA0; //DACDATH 4000; 
-    
+
 	
     CMP1_Enable();
 
@@ -247,6 +246,47 @@ void CMP1_Tasks(void)
 
         // clear the CMP1 interrupt flag
         IFS4bits.CMP1IF = 0;
+    }
+}
+/******************************************************************************
+ *    Function:		slope method simulation  CBC function LBE protection
+ *    Description:  Pressing switch changing DAC value switching value
+ *                  DAC change for swape value to touch the CBC function
+ *                  here need to print DAC value 
+ *	 Parameters:	   None
+ *   Return Value:     None
+ ******************************************************************************/
+void CBC_Function_Task(CBC_Simulation CBC_Level)
+{
+    switch (CBC_Level)
+    {
+    case Slope_A:      /*80 Current limit duty output*/
+        PG1DC = 0x9C4; /*duty 50*/
+        PG2DC = 0x4E2;
+        /*manuel SOC updata*/
+        PG1STATbits.UPDREQ = 1;
+        PG2STATbits.UPDREQ = 1;
+        /*Updata DAC value*/
+        DAC1DATH = 0xFA0; /*Upper limit*/
+        break;
+
+    case Slope_B: /*90 Current limit duty output*/
+
+        PG1DC = 0x1194; /*duty 90*/
+        /*manuel SOC updata*/
+        PG1STATbits.UPDREQ = 1;
+        /*Updata DAC value*/
+        DAC1DATH = 0xFA0; /*Upper limit 80 duty*/
+        break;
+
+    case Slope_C: /*Shunt down*/
+
+        PG1DC = 0x1194; /*duty 50*/
+                        /*manuel SOC updata*/
+        PG1STATbits.UPDREQ = 1;
+        /*Updata DAC value*/
+        DAC1DATH = 0xFA0; /*Upper limit 80duty*/
+        break;
     }
 }
 
