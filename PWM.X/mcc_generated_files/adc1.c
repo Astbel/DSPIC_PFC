@@ -168,7 +168,7 @@ void ADC1_Initialize (void)
     // Clearing channel_AN16 interrupt flag.
     IFS6bits.ADCAN16IF = 0;
     // Enabling channel_AN16 interrupt.
-    IEC6bits.ADCAN16IE = 0;
+    IEC6bits.ADCAN16IE = 1;
     // Clearing channel_AN24 interrupt flag.
     IFS12bits.ADCAN24IF = 0;
     // Enabling channel_AN24 interrupt.
@@ -280,10 +280,10 @@ void __attribute__ ( ( __interrupt__ , auto_psv, weak ) ) _ADCAN16Interrupt ( vo
     { 
         ADC1_channel_AN16DefaultInterruptHandler(valchannel_AN16); 
     }
-    GPIO_ON();
+    GPIO_ON(PIN_5);
     //clear the channel_AN16 interrupt flag
     IFS6bits.ADCAN16IF = 0;
-    GPIO_OFF();
+    GPIO_OFF(PIN_5);
 }
 
 void __attribute__ ((weak)) ADC1_channel_AN24_CallBack( uint16_t adcVal )

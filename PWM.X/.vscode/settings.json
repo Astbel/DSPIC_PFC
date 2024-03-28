@@ -12,6 +12,8 @@
         "stdbool.h": "c",
         "gpwm.h": "c",
         "pin_manager.h": "c",
-        "interrupt_manager.h": "c"
+        "interrupt_manager.h": "c",
+        "traps.h": "c",
+        "uart1.h": "c"
     }
 }

@@ -130,9 +130,12 @@
 #include "uart1.h"
 #include "interrupt_manager.h"
 #include "traps.h"
+#include "adc1.h"
+#include "GPIO.h"
 
 void SYSTEM_Initialize(void)
 {
+  GPIO_Init();
   PIN_MANAGER_Initialize();
   CLOCK_Initialize();
   INTERRUPT_Initialize();

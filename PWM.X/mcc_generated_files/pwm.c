@@ -264,7 +264,7 @@ void PWM_Initialize(void)
 
     // PWM Generator 1 Interrupt
     IFS4bits.PWM1IF = 0;
-    IEC4bits.PWM1IE = 1;
+    IEC4bits.PWM1IE = 0;
 
     // Wait until AUX PLL clock is locked
     while (!CLOCK_AuxPllLockStatusGet())
@@ -292,27 +292,27 @@ void __attribute__((interrupt, no_auto_psv)) _PWM1Interrupt()
     if (check_BTN_Press() == False)
     {
         // PG2CONLbits.ON = 0;
-         GPIO_OFF();
+        //  GPIO_OFF();
 
         // change PDC1
         // PG1DC = 0xFFF0;
         // PG1STATbits.UPDREQ = 1;
-        PG1STATbits.UPDREQ = 0;
+        // PG1STATbits.UPDREQ = 0;
     }
     else if (check_SW2_Press() == False)
     {
         // PG2CONLbits.ON = 1;
-         GPIO_ON();
+        //  GPIO_ON();
 
         // relase back pdc duty
-        PG1DC=0x4E20;
-         PG1STATbits.UPDREQ = 1;
-          PG1STATbits.UPDREQ = 0;
+        // PG1DC=0x4E20;
+        //  PG1STATbits.UPDREQ = 1;
+        //   PG1STATbits.UPDREQ = 0;
     }
     else
     {
-         PG1DC = 0x9C4;
-         PG1STATbits.UPDREQ = 0;
+        //  PG1DC = 0x9C4;
+        //  PG1STATbits.UPDREQ = 0;
     }
     
    
