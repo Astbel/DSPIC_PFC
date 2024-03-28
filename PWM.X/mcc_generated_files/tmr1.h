@@ -60,6 +60,8 @@
 #endif
 
 
+#define Timer_BTN_Task 0
+
 /**
   Section: Interface Routines
 */

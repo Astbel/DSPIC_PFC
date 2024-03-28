@@ -50,7 +50,7 @@
 #include <stddef.h>
 #include "xc.h"
 #include "uart1.h"
-
+#include "GPIO.h"
 /**
   Section: Data Type Definitions
 */

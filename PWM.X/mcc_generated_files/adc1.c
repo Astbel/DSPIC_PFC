@@ -165,6 +165,10 @@ void ADC1_Initialize (void)
     ADC1_Setchannel_AN24InterruptHandler(&ADC1_channel_AN24_CallBack);
     ADC1_Setchannel_AN25InterruptHandler(&ADC1_channel_AN25_CallBack);
 
+    // Clearing ADC1 interrupt.
+    IFS5bits.ADCIF = 0;
+    // Enabling ADC1 interrupt.
+    IEC5bits.ADCIE = 0;
     // Clearing channel_AN16 interrupt flag.
     IFS6bits.ADCAN16IF = 0;
     // Enabling channel_AN16 interrupt.
@@ -172,11 +176,11 @@ void ADC1_Initialize (void)
     // Clearing channel_AN24 interrupt flag.
     IFS12bits.ADCAN24IF = 0;
     // Enabling channel_AN24 interrupt.
-    IEC12bits.ADCAN24IE = 0;
+    IEC12bits.ADCAN24IE = 1;
     // Clearing channel_AN25 interrupt flag.
     IFS12bits.ADCAN25IF = 0;
     // Enabling channel_AN25 interrupt.
-    IEC12bits.ADCAN25IE = 0;
+    IEC12bits.ADCAN25IE = 1;
 
     // Setting WARMTIME bit
     ADCON5Hbits.WARMTIME = 0xF;
@@ -201,8 +205,8 @@ void ADC1_Initialize (void)
     ADTRIG3L = 0x00;
     //TRGSRC15 None; TRGSRC14 None; 
     ADTRIG3H = 0x00;
-    //TRGSRC17 None; TRGSRC16 PWM1 Trigger1; 
-    ADTRIG4L = 0x04;
+    //TRGSRC17 None; TRGSRC16 PWM1 Trigger2; 
+    ADTRIG4L = 0x05;
     //TRGSRC19 None; TRGSRC18 None; 
     ADTRIG4H = 0x00;
     //TRGSRC20 None; TRGSRC21 None; 
@@ -237,8 +241,7 @@ void ADC1_SharedCorePowerEnable ( )
 
 void __attribute__ ((weak)) ADC1_CallBack ( void )
 {
-    // GPIO_Toggle();
-    // GPIO_ON();
+    // GPIO_Toggle(PIN_5);
 }
 
 void ADC1_SetCommonInterruptHandler(void* handler)
@@ -254,7 +257,7 @@ void __attribute__ ((weak)) ADC1_Tasks ( void )
     {
         ADC1_CommonDefaultInterruptHandler();
     }
-
+    GPIO_Toggle(PIN_5);
     // clear the ADC1 interrupt flag
     IFS5bits.ADCIF = 0;
 }

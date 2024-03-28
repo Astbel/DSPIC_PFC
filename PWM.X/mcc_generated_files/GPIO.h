@@ -8,6 +8,7 @@
 
 #define PIN_4  1
 #define PIN_5  2
+#define PIN_6  3
 
 #define GPIO_LAT_4 LATEbits.LATE4
 #define GPIO_TRIS_4 TRISEbits.TRISE4
@@ -15,10 +16,15 @@
 #define GPIO_LAT_5 LATEbits.LATE5
 #define GPIO_TRIS_5 TRISEbits.TRISE5
 
+#define GPIO_LAT_6 LATEbits.LATE6
+#define GPIO_TRIS_6 TRISEbits.TRISE6
+
+
 typedef enum
 {
     GPIO_4=1,
     GPIO_5,
+    GPIO_6,
 }GPIO_Pin_Name;
 
 extern GPIO_Pin_Name GPIO_Name;

@@ -9697,7 +9697,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADTRIG4L"/>
-         <value>4</value>
+         <value>5</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADTRIG5H"/>
@@ -10133,7 +10133,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCI" settingAlias="enable"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCI" settingAlias="flag"/>
@@ -11853,7 +11853,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADTRIG4L" settingAlias="TRGSRC16"/>
-         <value>PWM1 Trigger1</value>
+         <value>PWM1 Trigger2</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADTRIG4L" settingAlias="TRGSRC17"/>
@@ -16853,7 +16853,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigBInput"/>
-         <value>0.00000750000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</value>
+         <value>0.0000025</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigBInputMaxRnage"/>
@@ -16865,7 +16865,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigCInput"/>
-         <value>0</value>
+         <value>0.0000025</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM" name="pwmGeneratorTrigCInputMaxRnage"/>
@@ -36941,11 +36941,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1TRIGB"/>
-         <value>3750</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG1TRIGC"/>
-         <value>0</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="PWM" registerAlias="PG2CLPCIH"/>
@@ -38597,11 +38597,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1TRIGB" settingAlias="TRIGB1"/>
-         <value>3750</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG1TRIGC" settingAlias="TRIGC1"/>
-         <value>0</value>
+         <value>1250</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="PWM" registerAlias="PG2CLPCIH" settingAlias="ACP"/>
@@ -56199,11 +56199,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.c</file>
-         <hash>03e70837c8423c164bdba451115562ecdb7030d0e71b51603ae7becd54a26717</hash>
+         <hash>e11d9205f6ab0a92ba5fc8b412582fb52c106d0cadb56487577ab9eaaafde875</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.h</file>
-         <hash>3bae2b412f47f56dae6ed37162d93fd9aa14a2112e1d5928e0225818fb6e3240</hash>
+         <hash>b59e4c80e7c751df87ea304c8ac55af962ee2ed77a42212168c0a74417510d92</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc_module_features.h</file>
@@ -56227,7 +56227,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>2eb68724c4c9c4c5bdff358d04005810bf2a3cea633372046afe6727e42b0785</hash>
+         <hash>b95d03efc885e22deac5eded7a3f7c2b96b3b0f516e3d5565bdc7126129fa7a0</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\interrupt_manager.h</file>
@@ -56239,7 +56239,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>78cc2b76466ee66d3a56bc432b3a99d672cb88b44244e59a3eb5849401c97e59</hash>
+         <hash>751ed44a59b650737792c820f08816ed2bf6f79994cde320f33395e6767dd452</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
@@ -56251,7 +56251,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.c</file>
-         <hash>89efc8740c64b63c4761d5950d50a3d88b2ea046da6d4cf23f036563a5efa69c</hash>
+         <hash>e6f7445a3b52182e27944e6ee0ddc3afe529a674d4fcccba68536f0950d79ce9</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pwm.h</file>
@@ -56275,7 +56275,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>44923218dfb21fa523ff15f04345251e55a78ea1e899d9f50eb73dce77491610</hash>
+         <hash>ed1e34874a4dc0cf4ae1783ac2099bd96da1cbd6614cce5a646b9ee86c12ee6d</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

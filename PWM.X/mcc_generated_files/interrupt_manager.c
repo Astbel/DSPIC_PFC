@@ -55,9 +55,12 @@ void INTERRUPT_Initialize (void)
     //    PWM1I: PWM Generator 1
     //    Priority: 1
         IPC16bits.PWM1IP = 1;
+    //    ADCI: ADC Global Interrupt
+    //    Priority: 1
+        IPC22bits.ADCIP = 1;
     //    ADCAN16: ADC AN16 Convert Done
     //    Priority: 1
-        IPC26bits.ADCAN16IP = 6;
+        IPC26bits.ADCAN16IP = 1;
     //    ADCAN24: ADC AN24 Convert Done
     //    Priority: 1
         IPC48bits.ADCAN24IP = 1;

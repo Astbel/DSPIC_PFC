@@ -132,7 +132,7 @@ void PWM_Initialize(void)
     PG1EVTL = 0x201;
     // UPDTRG Duty Cycle; ADTR1PS 1:1; PGTRGSEL EOC event; ADTR1EN3 disabled; ADTR1EN1 disabled; ADTR1EN2 disabled;
     PG2EVTL = 0x08;
-    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 enabled;
+    // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 enabled; 
     PG1EVTH = 0x80;
     // ADTR2EN1 disabled; IEVTSEL EOC; SIEN disabled; FFIEN disabled; ADTR1OFS None; CLIEN disabled; FLTIEN disabled; ADTR2EN2 disabled; ADTR2EN3 disabled;
     PG2EVTH = 0x00;
@@ -196,12 +196,12 @@ void PWM_Initialize(void)
     PG1TRIGA = 0x4E2;
     // TRIGA 0;
     PG2TRIGA = 0x00;
-    // TRIGB 3750;
-    PG1TRIGB = 0xEA6;
+    // TRIGB 1250; 
+    PG1TRIGB = 0x4E2;
     // TRIGB 0;
     PG2TRIGB = 0x00;
-    // TRIGC 0;
-    PG1TRIGC = 0x00;
+    // TRIGC 1250; 
+    PG1TRIGC = 0x4E2;
     // TRIGC 0;
     PG2TRIGC = 0x00;
     // DTL 50;
@@ -266,9 +266,8 @@ void PWM_Initialize(void)
     IFS4bits.PWM1IF = 0;
     IEC4bits.PWM1IE = 0;
 
-    // Wait until AUX PLL clock is locked
-    while (!CLOCK_AuxPllLockStatusGet())
-        ;
+    //Wait until AUX PLL clock is locked
+    while(!CLOCK_AuxPllLockStatusGet());
 
     PG1CONLbits.ON = 1;
     PG2CONLbits.ON = 1;

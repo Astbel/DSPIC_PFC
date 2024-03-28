@@ -7,6 +7,7 @@ void GPIO_Init(void)
 {
     GPIO_TRIS_4 = 0;
     GPIO_TRIS_5 = 0;
+    // GPIO_TRIS_6 = 0;
 }
 
 /*method delcare*/
@@ -20,6 +21,10 @@ void GPIO_Toggle(GPIO_Pin_Name GPIO_Name)
         break;
     case PIN_5:
         GPIO_LAT_5 ^= 1; // set as output
+        GPIO_TRIS_5 = 0;
+    case PIN_6:
+        GPIO_LAT_6 ^= 1; // set as output
+        GPIO_TRIS_6 = 0;
         break;
     }
 }
@@ -35,6 +40,9 @@ void GPIO_ON(GPIO_Pin_Name GPIO_Name)
     case PIN_5:
         GPIO_LAT_5 = 1; // set as output
         GPIO_TRIS_5 = 0;
+    case PIN_6:
+        GPIO_LAT_6 = 1; // set as output
+        GPIO_TRIS_6 = 0;
         break;
     }
 }
@@ -49,6 +57,9 @@ void GPIO_OFF(GPIO_Pin_Name GPIO_Name)
     case PIN_5:
         GPIO_LAT_5 = 0; // set as output
         GPIO_TRIS_5 = 0;
+    case PIN_6:
+        GPIO_LAT_6 = 0; // set as output
+        GPIO_TRIS_6 = 0;
         break;
     }
 }

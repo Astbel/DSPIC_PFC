@@ -51,6 +51,7 @@
 #include "tmr1.h"
 #include "pwm.h"
 #include "cmp1.h"
+#include "GPIO.h"
 /**
  Section: File specific functions
 */
@@ -160,8 +161,8 @@ void __attribute__((weak)) TMR1_CallBack(void)
 {
   // Add your custom callback code here
   /*觀測用可以確定Timer是否發生*/
-  // GPIO_Toggle();
-  /*switch on DAC*/
+  GPIO_Toggle(PIN_4);
+  #if(Timer_BTN_Task==True)
   if ((check_BTN_Press() == True))
   {
     CMP1_Enable();
@@ -182,7 +183,7 @@ void __attribute__((weak)) TMR1_CallBack(void)
     CMP1_Enable();
     
   }
-
+#endif
   /*GPIO PCI status*/
 
   /*duty  變換目前失敗檢測中*/
